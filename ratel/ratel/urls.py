@@ -21,5 +21,5 @@ from django.views.generic import RedirectView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('ratel/', include('ratelweb.urls')), # /ratel/ 로 들어오면 ratelweb의 url에서 매핑
-    path('', RedirectView.as_view(url='/ratel/', permanent=True)), # / 로 들어오면 /ratel/ 로 리다이렉트
+    path('', RedirectView.as_view(url='ratel/', permanent=True)), # / 로 들어오면 ratel/ 로 리다이렉트
 ]
