@@ -25,7 +25,7 @@ SECRET_KEY = '+9lx-x(sb-ty#wz5^)p$-u2s14$u8b6953-#y6o&tq*r&)ahl&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['3.15.209.236']
+ALLOWED_HOSTS = ['3.15.209.236', 'localhost']
 
 
 # Application definition
@@ -38,9 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -52,11 +54,15 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'ratel.urls'
 
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:3000',
+)
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            os.path.join(BASE_DIR, 'templates'),
+        'DIRS': [  # frontend/build/
+            os.path.join(BASE_DIR, 'frontend', 'build'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -68,6 +74,10 @@ TEMPLATES = [
             ],
         },
     },
+]
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'frontend', 'build', 'static')
 ]
 
 WSGI_APPLICATION = 'ratel.wsgi.application'
