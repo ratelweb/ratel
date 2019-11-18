@@ -16,10 +16,20 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.urls import include
-from django.views.generic import RedirectView
+from django.views.generic import RedirectView, TemplateView
+
+# 리액트의 index.html
+
+
+class HomeTemplateView(TemplateView):
+    template_name = 'index.html'
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('ratel/', include('ratelweb.urls')), # /ratel/ 로 들어오면 ratelweb의 url에서 매핑
-    path('', RedirectView.as_view(url='ratel/', permanent=True)), # / 로 들어오면 ratel/ 로 리다이렉트
+    # /ratel/ 로 들어오면 ratelweb의 url에서 매핑
+    path('ratel/', include('ratelweb.urls')),
+    path('', HomeTemplateView.as_view(), name='home'),
+    # / 로 들어오면 ratel/ 로 리다이렉트
+    path('', RedirectView.as_view(url='ratel/', permanent=True)),
 ]
