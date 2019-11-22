@@ -2,6 +2,7 @@
     "name": "frontend",
     "version": "0.1.0",
     "private": true,
+    "proxy": "http://3.15.209.236:80",
     "dependencies": {
         "node-sass": "^4.13.0",
         "react": "^16.11.0",
@@ -10,8 +11,8 @@
         "react-scripts": "3.2.0"
     },
     "scripts": {
-        "start": "NODE_PATH=src/ react-scripts start",
-        "build": "NODE_PATH=src/ react-scripts build",
+        "start": "cross-env NODE_PATH=src/ react-scripts start",
+        "build": "cross-env NODE_PATH=src/ react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject"
     },
@@ -29,5 +30,8 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
+    },
+    "devDependencies": {
+        "cross-env": "^6.0.3"
     }
 }

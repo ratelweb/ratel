@@ -31,5 +31,5 @@ urlpatterns = [
     path('ratel/', include('ratelweb.urls')),
     path('', HomeTemplateView.as_view(), name='home'),
     # / 로 들어오면 ratel/ 로 리다이렉트
-    path('', RedirectView.as_view(url='ratel/', permanent=True)),
+    # path('', RedirectView.as_view(url='ratel/', permanent=True)),
 ]
