@@ -11,21 +11,19 @@ const Header = props => {
                     <img className="logo-icon" src={require("assets/logo.png")} />
                 </div>
             </Link>
-            <Link to="/menu1" className="menu">
-                <div>Menu</div>
+            
+            <Link to="/search" className="menu">
+                <div>도서/논문 검색</div>
             </Link>
-            <Link to="/menu2" className="menu">
-                <div>Menu</div>
+            <Link to="/recommend" className="menu">
+                <div>추천 도서</div>
             </Link>
-            <Link to="/menu3" className="menu">
-                <div>Menu</div>
+            <Link to="/login" className="menu">
+                <div className="user">
+                    <div>로그인/회원가입</div>
+                    {/* <img className="user-icon" src={require("assets/user.png")} /> */}
+                </div>
             </Link>
-            <Link to="/menu4" className="menu">
-                <div>Menu</div>
-            </Link>
-            <div className="user">
-                <img className="user-icon" src={require("assets/user.png")} />
-            </div>
         </div>
     );
 };
