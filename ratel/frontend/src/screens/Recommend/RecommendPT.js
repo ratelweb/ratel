@@ -9,7 +9,7 @@ const SearchPT = props => {
                 <div className="intro">
                     <img className="intro-img" src={require("assets/intro.png")} />
                 </div>
-                <div className="content">a자랑스러운 건국대학교! </div>
+                <div className="content">자랑스러운 건국대학교! </div>
                 <Footer></Footer>
             </div>
         </div>
