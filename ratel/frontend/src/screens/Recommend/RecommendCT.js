@@ -1,8 +1,8 @@
 import React from "react";
-import SearchPT from "./RecommendPT";
+import RecommendPT from "./RecommendPT";
 
-const SearchCT = props => {
-    return <SearchPT></SearchPT>;
+const RecommendCT = props => {
+    return <RecommendPT></RecommendPT>;
 };
 
-export default SearchCT;
+export default RecommendCT;
