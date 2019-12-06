@@ -2,9 +2,13 @@ import urllib.request
 import json
 from collections import OrderedDict
 
-def bookinfo_json(bookname):
-    bookInfo = OrderedDict()
-    searchBook = OrderedDict()
+#도서추천 ==> 책 이름을 입력하면 NAVER API 에서 isbn번호를 얻고 그 번호를 정보나루 API에 전달하면 검색한 도서와 함께 대출한 도서들을 기준으로 추천해줌.
+#도서는 최대 200권 까지 추천 받을수 있음.
+#추천 도서 권수를 바꾸는 것은 밑에 표시
+#bookname = string
+def recommand(bookname):
+    R_book = OrderedDict()
+    Recommand = OrderedDict()
 
     client_id = "rD4sPe51j0K1J7gO37IY"  # 애플리케이션 등록시 발급 받은 값 입력
     client_secret = "OshQx1OW9d"  # 애플리케이션 등록시 발급 받은 값 입력
@@ -14,77 +18,143 @@ def bookinfo_json(bookname):
     request.add_header("X-Naver-Client-Id", client_id)
     request.add_header("X-Naver-Client-Secret", client_secret)
     response = urllib.request.urlopen(request)
-
     rescode = response.getcode()
 
     if (rescode == 200):
         response_body = response.read()
         isbn = json.loads(response_body)
-        for i in range(0, isbn["display"]):
-            isbn_13 = isbn["items"][i]["isbn"]
-            isbn_13 = isbn_13[11:24]
 
-            url_naru = 'http://data4library.kr/api/'
-            url_naru += 'srchDtlList?authKey=0fa6d79d61e3a3d1fd35769e5bd381020efa73b402adc57b894d3fd0831c21c6'
-            url_naru += '&isbn13=%s&loaninfoYN=Y&displayInfo=age&format=json' % isbn_13
+        isbn_13 = isbn["items"][0]["isbn"]
+        isbn_13 = isbn_13[11:24] #네이버에서 isbn을 따면 '[10자리] [13자리]'처럼 줘서 13자리로 만드는 과정
 
-            u = urllib.request.urlopen(url_naru)
-            bookdata = json.loads(u.read())
+        url_naru = 'http://data4library.kr/api/'
+        url_naru += 'recommandList?authKey=0fa6d79d61e3a3d1fd35769e5bd381020efa73b402adc57b894d3fd0831c21c6'
+        url_naru += '&isbn13=%s&format=json' % isbn_13
 
-            class_no = bookdata["response"]["detail"][0]["book"]["class_no"]
-            class_no.replace('"', '')
-            class_no = int(float(class_no))
-            class_no /= 100
-            class_no = int(class_no)
+        u = urllib.request.urlopen(url_naru)
+        recommand = json.loads(u.read())
 
-            if class_no == 0:
-                class_name = "총류"
-                bookInfo["class_no"] = class_name
-            elif class_no == 1:
-                class_name = "철학"
-                bookInfo["class_no"] = class_name
-            elif class_no == 2:
-                class_name = "종교"
-                bookInfo["class_no"] = class_name
-            elif class_no == 3:
-                class_name = "사회과학"
-                bookInfo["class_no"] = class_name
-            elif class_no == 4:
-                class_name = "자연과학"
-                bookInfo["class_no"] = class_name
-            elif class_no == 5:
-                class_name = "기술과학"
-                bookInfo["class_no"] = class_name
-            elif class_no == 6:
-                class_name = "예술"
-                bookInfo["class_no"] = class_name
-            elif class_no == 7:
-                class_name = "언어"
-                bookInfo["class_no"] = class_name
-            elif class_no == 8:
-                class_name = "문학"
-                bookInfo["class_no"] = class_name
-            elif class_no == 9:
-                class_name = "역사"
-                bookInfo["class_no"] = class_name
-
-            bookInfo["bookname"] = bookdata["response"]["detail"][0]["book"]["bookname"]
-            bookInfo["authors"] = bookdata["response"]["detail"][0]["book"]["authors"]
-            bookInfo["class_no"] = class_name
-            bookInfo["bookImageURL"] = bookdata["response"]["detail"][0]["book"]["bookImageURL"]
-            bookInfo["description"] = bookdata["response"]["detail"][0]["book"]["description"]
-
-            searchBook["bookInfo"] = bookInfo
-            #with open('book.json', 'w', encoding = "utf-8") as make_file:
-            #    json.dump(searchBook, make_file, ensure_ascii=False, indent = "\t")
+        R_book["Recommand"] = []
+        for i in range(0, 20, 1): #20을 다른 숫자로 바꾸면 추천 도서 권수가 바뀜
+            R_book["Recommand"].append({
+                "bookname" : recommand["response"]["docs"][i]["book"]["bookname"],
+                "isbn" : recommand["response"]["docs"][i]["book"]["isbn13"]
+            })
 
 
 
     else:
         print("Error Code:" + rescode)
 
-    return json.dumps(searchBook, ensure_ascii=False, indent="\t")
-    #return 'book.json'
+    return json.dumps(R_book, ensure_ascii=False, indent="\t") #json 형식으로 return
 
-a = input("책 제목 : ")
-print(bookinfo_json(a))
+#책 이름으로 책 정보 출력 ==> 도서명, 저자, 출판사, 책 표지 url, 책소개, isbn
+#bookname = string
+#isbn으로 책 정보 얻기 어려울거 같을 때 사용 (같은 책 이름, 다른 책 인경우가 있어서 정확도 떨어짐.)
+def Bookinfo_Name(bookname):
+    book = OrderedDict()
+    bookInfo = OrderedDict()
+
+    client_id = "rD4sPe51j0K1J7gO37IY"  # 애플리케이션 등록시 발급 받은 값 입력
+    client_secret = "OshQx1OW9d"  # 애플리케이션 등록시 발급 받은 값 입력
+    encText = urllib.parse.quote(bookname)
+    url = "https://openapi.naver.com/v1/search/book.json?query=" + encText + "&display=1&sort=count"
+    request = urllib.request.Request(url)
+    request.add_header("X-Naver-Client-Id", client_id)
+    request.add_header("X-Naver-Client-Secret", client_secret)
+    response = urllib.request.urlopen(request)
+    rescode = response.getcode()
+
+    if (rescode == 200):
+        response_body = response.read()
+        isbn = json.loads(response_body)
+
+        isbn_13 = isbn["items"][0]["isbn"]
+        isbn_13 = isbn_13[11:24]
+
+        url_naru = 'http://data4library.kr/api/'
+        url_naru += 'srchDtlList?authKey=0fa6d79d61e3a3d1fd35769e5bd381020efa73b402adc57b894d3fd0831c21c6'
+        url_naru += '&isbn13=%s&loaninfoYN=Y&displayInfo=age&format=json' % isbn_13
+
+        u = urllib.request.urlopen(url_naru)
+        bookdata = json.loads(u.read())
+
+        bookInfo["bookname"] = bookdata["response"]["detail"][0]["book"]["bookname"]
+        bookInfo["authors"] = bookdata["response"]["detail"][0]["book"]["authors"]
+        bookInfo["publisher"] = bookdata["response"]["detail"][0]["book"]["publisher"]
+        bookInfo["bookImageURL"] = bookdata["response"]["detail"][0]["book"]["bookImageURL"]
+        bookInfo["description"] = bookdata["response"]["detail"][0]["book"]["description"]
+        bookInfo["isbn"] = bookdata["response"]["detail"][0]["book"]["isbn13"]
+        book["bookInfo"] = bookInfo
+    else:
+        print("Error Code:" + rescode)
+
+    return json.dumps(book, ensure_ascii=False, indent="\t")  # json 형식으로 return
+
+#책 isbn으로 책 정보 출력 책 이름으로 찾는거 보다 더욱 정확함.
+#isbn = string
+def Bookinfo_Isbn(isbn):
+    book = OrderedDict()
+    bookInfo = OrderedDict()
+
+    url_naru = 'http://data4library.kr/api/'
+    url_naru += 'srchDtlList?authKey=0fa6d79d61e3a3d1fd35769e5bd381020efa73b402adc57b894d3fd0831c21c6'
+    url_naru += '&isbn13=%s&loaninfoYN=Y&displayInfo=age&format=json' % isbn
+
+    u = urllib.request.urlopen(url_naru)
+    bookdata = json.loads(u.read())
+
+    bookInfo["bookname"] = bookdata["response"]["detail"][0]["book"]["bookname"]
+    bookInfo["authors"] = bookdata["response"]["detail"][0]["book"]["authors"]
+    bookInfo["publisher"] = bookdata["response"]["detail"][0]["book"]["publisher"]
+    bookInfo["bookImageURL"] = bookdata["response"]["detail"][0]["book"]["bookImageURL"]
+    bookInfo["description"] = bookdata["response"]["detail"][0]["book"]["description"]
+    bookInfo["isbn"] = bookdata["response"]["detail"][0]["book"]["isbn13"]
+    book["bookInfo"] = bookInfo
+
+    return json.dumps(book, ensure_ascii=False, indent="\t")  # json 형식으로 return
+
+#bookname = string
+#도서 검색시 사용
+#도서 이름, 저자, 출판사, 내용요약, isbn정보
+def searchBook(bookname):
+    search = OrderedDict()
+    Bookinfo = OrderedDict()
+
+    client_id = "rD4sPe51j0K1J7gO37IY"  # 애플리케이션 등록시 발급 받은 값 입력
+    client_secret = "OshQx1OW9d"  # 애플리케이션 등록시 발급 받은 값 입력
+    encText = urllib.parse.quote(bookname)
+    # display의 최소 검색 수는 10권이고, &display= 뒤에 숫자를 입력하면 건수를 지정할수 있음(최대 100권)
+    url = "https://openapi.naver.com/v1/search/book.json?query=" + encText + "&display=20&sort=count"
+    request = urllib.request.Request(url)
+    request.add_header("X-Naver-Client-Id", client_id)
+    request.add_header("X-Naver-Client-Secret", client_secret)
+    response = urllib.request.urlopen(request)
+    rescode = response.getcode()
+
+    if (rescode == 200):
+        response_body = response.read()
+        search = json.loads(response_body)
+
+        search["search"] = []
+        for i in range (0, search["display"], 1):
+            search["search"].append({
+                "bookname": search["items"][i]["title"],
+                "author" : search["items"][i]["author"],
+                "publisher" : search["items"][i]["publisher"],
+                "description" : search["items"][i]["description"],
+                "isbn": search["items"][i]["title"]
+            })
+
+        return json.dumps(search, ensure_ascii=False, indent="\t")
+
+a = input("책 이름 : ") # 입력은 string
+print(recommand(a))
+
+print(Bookinfo_Name(a)) # 입력은 string
+
+#test : 9788956604992 (7년의 밤)
+b = input("isbn : ")
+print(Bookinfo_Isbn(b))
+
+print(searchBook(a))
