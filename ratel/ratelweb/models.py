@@ -1,9 +1,10 @@
 from django.db import models
 
+# Create your models here.
 
-# class Books(models.Model):
-#     text = models.CharField(max_length=255)
-#     created_at = models.DateTimeField(auto_now=False, auto_now_add=True)
+class User(models.Model):
+    email = models.CharField(max_length=50, default="aaa@gmail.com")
 
-#     def __str__(self):
-#         return self.text
+class Bookmark(models.Model):
+    iden = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
+    bookmark = models.IntegerField(default=1234567891011)
