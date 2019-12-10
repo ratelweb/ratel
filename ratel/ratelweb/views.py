@@ -6,6 +6,7 @@ from rest_framework import views
 from rest_framework.response import Response
 from .serializers import SearchSerializer
 import bookinfo
+import paper
 import dbfunc
 
 import requests
@@ -42,34 +43,52 @@ class BookView(views.APIView):
 
 class SignView(views.APIView):
 
-    id = 'parks8109'
+    id = {}
 
     def post(self, request):
             print(request.body.decode("utf-8"))
-            self.id = request.body.decode("utf-8")
+            self.id = json.loads(request.body.decode("utf-8"))
 
             results = dbfunc.search_user(self.id["username"])
             if results:
                 return Response(False)
-            dbfunc.add_user(self.id["username"])
-            results = dbfunc.search_user(self.id["username"])
-
-            # print(self.bookinf)
-            # results = SearchSerializer(self.bookinf, many=True).data
-            results = json.dumps(results, ensure_ascii=False)
+            dbfunc.add_user(self.id["username"], self.id["passward"])
 
             # print("results: ", results)
-            return Response(results)
+            return Response(True)
+
+class LoginView(views.APIView):
+    id = {}
+
+    def post(self, request):
+        print(request.body.decode("utf-8"))
+        self.id = json.loads(request.body.decode("utf-8"))
+
+        results = dbfunc.check_login(self.id["username"], self.id["passward"])
+        if results:
+            return Response(True)
+
+        # print("results: ", results)
+        return Response(False)
+
+class FavorView(views.APIView):
+    id = {}
+
+    def post(self, request):
+        print(request.body.decode("utf-8"))
+        self.id = json.loads(request.body.decode("utf-8"))
+
+        #print("results: ", results)
+        return Response(dbfunc.add_bookmark(self.id["username"], self.id["isbn"]))
 
 class RecommendView(views.APIView):
-    bookname = "해리포터"
+    id = ""
     recommendinf = {}
 
     def post(self, request):
-
         print(request.body.decode("utf-8"))
-        self.bookname = request.body.decode("utf-8")
-        self.recommendinf = bookinfo.recommand(self.bookname)
+        self.id = request.body.decode("utf-8")
+        ###self.recommendinf = dbfunc.(self.bookname)
         # print(self.bookinf)
         #results = SearchSerializer(self.bookinf, many=True).data
         results = self.recommendinf
@@ -85,7 +104,7 @@ class PaperView(views.APIView):
 
         print(request.body.decode("utf-8"))
         self.papername = request.body.decode("utf-8")
-        self.paperinf = bookinfo.recommand(self.papername)
+        self.paperinf = paper.Paper(self.papername)
         # print(self.bookinf)
         #results = SearchSerializer(self.bookinf, many=True).data
         results = self.paperinf
