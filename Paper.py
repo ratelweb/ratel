@@ -25,8 +25,6 @@ def Paper(title):
 
     return json.dumps(paper, ensure_ascii=False, indent="\t")
 
-
-
 a = input("제목 : ")
 print(Paper(a))
 
