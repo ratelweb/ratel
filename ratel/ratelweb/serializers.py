@@ -4,8 +4,8 @@ from rest_framework import serializers
 # 뷰에서 바로 넘겨주는 용도
 class YourSerializer(serializers.Serializer):
    """Your data serializer, define your fields here."""
-   comments = serializers.IntegerField()
-   likes = serializers.IntegerField()
+   bookname = serializers.IntegerField()
+   authors = serializers.IntegerField()
 
 ''' 모델에서 받아서 넘겨주는 용도
 class NoteSerializer(serializers.ModelSerializer):

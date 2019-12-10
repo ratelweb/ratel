@@ -118,7 +118,7 @@ def Bookinfo_Isbn(isbn):
 #도서 검색시 사용
 #도서 이름, 저자, 출판사, 내용요약, isbn정보
 def searchBook(bookname):
-    search = OrderedDict()
+    search1 = OrderedDict()
     Bookinfo = OrderedDict()
 
     client_id = "rD4sPe51j0K1J7gO37IY"  # 애플리케이션 등록시 발급 받은 값 입력
@@ -136,9 +136,9 @@ def searchBook(bookname):
         response_body = response.read()
         search = json.loads(response_body)
 
-        search["search"] = []
+        search1["search"] = []
         for i in range (0, search["display"], 1):
-            search["search"].append({
+            search1["search"].append({
                 "bookname": search["items"][i]["title"],
                 "author" : search["items"][i]["author"],
                 "publisher" : search["items"][i]["publisher"],
@@ -146,15 +146,16 @@ def searchBook(bookname):
                 "isbn": search["items"][i]["title"]
             })
 
-        return json.dumps(search, ensure_ascii=False, indent="\t")
+        return search1
 
-a = input("책 이름 : ") # 입력은 string
-print(recommand(a))
+if __name__ == "__main__":
+    a = input("책 이름 : ") # 입력은 string
+    #print(recommand(a))
 
-print(Bookinfo_Name(a)) # 입력은 string
+    #print(Bookinfo_Name(a)) # 입력은 string
 
-#test : 9788956604992 (7년의 밤)
-b = input("isbn : ")
-print(Bookinfo_Isbn(b))
+    #test : 9788956604992 (7년의 밤)
+    #b = input("isbn : ")
+    #print(Bookinfo_Isbn(b))
 
-print(searchBook(a))
+    print(searchBook(a))
