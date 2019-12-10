@@ -37,11 +37,12 @@ def recommand(bookname):
         R_book["Recommand"] = []
         for i in range(0, 20, 1): #20을 다른 숫자로 바꾸면 추천 도서 권수가 바뀜
             R_book["Recommand"].append({
-                "bookname" : recommand["response"]["docs"][i]["book"]["bookname"],
-                "isbn" : recommand["response"]["docs"][i]["book"]["isbn13"]
+                "bookname": recommand["response"]["docs"][i]["book"]["bookname"],
+                "authors": recommand["response"]["docs"][i]["book"]["authors"],
+                "publisher": recommand["response"]["docs"][i]["book"]["publisher"],
+                "image": recommand["response"]["docs"][i]["book"]["bookImageURL"],
+                "isbn": recommand["response"]["docs"][i]["book"]["isbn13"]
             })
-
-
 
     else:
         print("Error Code:" + rescode)
@@ -143,7 +144,8 @@ def searchBook(bookname):
                 "author" : search["items"][i]["author"],
                 "publisher" : search["items"][i]["publisher"],
                 "description" : search["items"][i]["description"],
-                "isbn": search["items"][i]["title"]
+                "image": search["items"][i]["image"],
+                "isbn": search["items"][i]["isbn"]
             })
 
         return search1

@@ -6,9 +6,9 @@ from rest_framework import views
 from rest_framework.response import Response
 from .serializers import SearchSerializer
 import bookinfo
+import dbfunc
 
 import requests
-import json
 
 from rest_framework import serializers
 import json
@@ -28,7 +28,7 @@ class BookView(views.APIView):
     bookname = "해리포터"
     bookinf = {}
 
-    def post(self, request, format=None):
+    def post(self, request):
 
         print(request.body.decode("utf-8"))
         self.bookname = request.body.decode("utf-8")
@@ -36,6 +36,42 @@ class BookView(views.APIView):
         # print(self.bookinf)
         #results = SearchSerializer(self.bookinf, many=True).data
         results = json.dumps(self.bookinf, ensure_ascii=False)
+
+        #print("results: ", results)
+        return Response(results)
+
+class SignView(views.APIView):
+
+    id = 'parks8109'
+
+    def post(self, request):
+            print(request.body.decode("utf-8"))
+            self.id = request.body.decode("utf-8")
+
+            # 데이터베이스에 넣기
+            dbfunc.add_user(id)
+            results = {}
+            results['id'] = dbfunc.search_user(id)
+
+            # print(self.bookinf)
+            # results = SearchSerializer(self.bookinf, many=True).data
+            results = json.dumps(results, ensure_ascii=False)
+
+            # print("results: ", results)
+            return Response(results)
+
+class RecommendView(views.APIView):
+    bookname = "해리포터"
+    recommendinf = {}
+
+    def post(self, request):
+
+        print(request.body.decode("utf-8"))
+        self.bookname = request.body.decode("utf-8")
+        self.recommendinf = bookinfo.recommand(self.bookname)
+        # print(self.bookinf)
+        #results = SearchSerializer(self.bookinf, many=True).data
+        results = self.recommendinf
 
         #print("results: ", results)
         return Response(results)
