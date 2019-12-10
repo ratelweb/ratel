@@ -25,9 +25,10 @@ class BookView(views.APIView):
     bookinf = {}
 
     def post(self, request, format=None):
-        # print(request.body["content"])
+        print(request.body.decode("utf-8"))
+        self.bookname = request.body.decode("utf-8")
         self.bookinf = bookinfo.searchBook(self.bookname)
-        # print(self.bookinf)
+        print(self.bookinf)
         #results = SearchSerializer(self.bookinf, many=True).data
         results = json.dumps(self.bookinf, ensure_ascii=False)
         # print("results: ", results)

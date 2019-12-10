@@ -7,7 +7,7 @@ function* getBookApi(payload) {
     try {
         // do api call
         const data = yield call(fetchBookData, payload);
-
+        console.log("Data: ", data);
         yield put(successBook(data));
     } catch (e) {
         yield put(failBook());

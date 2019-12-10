@@ -1,5 +1,3 @@
-import { putResolve } from "redux-saga/effects";
-
 export const fetchBookData = async payload => {
     try {
         console.log("payload: ", payload);
@@ -9,7 +7,7 @@ export const fetchBookData = async payload => {
                 Accept: "application/json",
                 "Content-Type": "application/json"
             },
-            body: payload
+            body: JSON.stringify(payload.payload)
         };
         const response = await fetch("http://localhost:8000/api/book/", config);
         const data = await response.json();

@@ -156,7 +156,8 @@ def searchBook(bookname):
                 "author": search["items"][i]["author"],
                 "publisher": search["items"][i]["publisher"],
                 "description": search["items"][i]["description"],
-                "isbn": search["items"][i]["title"]
+                "image": search["items"][i]["image"],
+                "isbn": search["items"][i]["isbn"]
             })
 
         return search1
