@@ -1,40 +1,48 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import "./Book.scss";
 import search from "assets/search.png";
 import { useSelector, useDispatch } from "react-redux";
-import { requestBook } from "../../store/actions/Book";
+import { requestPaper } from "../../store/actions/Book";
 import { Link } from "react-router-dom";
 
 const PaperPT = props => {
-    // const dispatch = useDispatch();
-    //const books = useSelector(state => state.bookReducer.book, []);
+    const dispatch = useDispatch();
+    let papers = useSelector(state => state.bookReducer.paper.paper);
+
+    const [keyword, setKeyword] = useState("");
+
+    const searchPaper = keyword => {
+        dispatch(requestPaper(keyword));
+    };
+
+    const onChangeKeyword = useCallback(e => {
+        setKeyword(e.target.value);
+    });
 
     useEffect(() => {
-        //dispatch(requestBook());
+        dispatch(requestPaper(keyword));
     }, []);
 
     return (
         <div className="wrap">
             <div className="search-bar">
-                <input type="text" className="input" placeholder="논문 검색"></input>
-                <img src={search}></img>
+                <input type="text" className="input" placeholder="논문 검색" onChange={onChangeKeyword}></input>
+                <img src={search} onClick={() => searchPaper(keyword)}></img>
             </div>
             <div className="content">
-                <div className="item">
-                    <div className="title">제목</div>
-                    <div className="intro">소개</div>
-                </div>
-                {/* books.map(book => {
-                                    return (
-                                        <Link to={`/book/${book.id}`}>
-                                            <div
-                                                className="item"
-                                            >
-                                                <div className="title">{recom.title}</div>
-                                            </div>
-                                        </Link>
-                                    );
-                                })} */}
+                {papers &&
+                    papers.map(paper => {
+                        return (
+                            <div className="item">
+                                <div className="title">{paper.title.replace(/(<([^>]+)>)/gi, "")}</div>
+                                <div className="text">저자: {paper.author.replace(/(<([^>]+)>)/gi, "")}</div>
+                                <div className="text">발행기관: {paper.publisher.replace(/(<([^>]+)>)/gi, "")}</div>
+                                <div className="text">
+                                    <img src={paper.preview}></img>
+                                </div>
+                            </div>
+                        );
+                    })}
             </div>
         </div>
     );

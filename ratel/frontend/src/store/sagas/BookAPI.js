@@ -18,7 +18,7 @@ function* getBookApi(payload) {
 function* getPaperApi(payload) {
     try {
         // do api call
-        const data = yield call(fetchPaperData(payload));
+        const data = yield call(fetchPaperData, payload);
         yield put(successPaper(data));
     } catch (e) {
         yield put(failPaper());

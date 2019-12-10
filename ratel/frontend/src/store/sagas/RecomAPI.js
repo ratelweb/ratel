@@ -4,10 +4,10 @@ import { GETFAVOR_REQUEST, successGetFavor, failGetFavor } from "store/actions/R
 import { ADDFAVOR_REQUEST, successAddFavor, failAddFavor } from "store/actions/Recom";
 import { fetchRecomData, fetchFavorData, addFavorData } from "../api";
 
-function* getRecomApi() {
+function* getRecomApi(payload) {
     try {
         // do api call
-        const data = yield call(fetchRecomData);
+        const data = yield call(fetchRecomData, payload);
         yield put(successRecom(data));
     } catch (e) {
         yield put(failRecom());
@@ -15,10 +15,10 @@ function* getRecomApi() {
     }
 }
 
-function* getFavorApi() {
+function* getFavorApi(payload) {
     try {
         // do api call
-        const data = yield call(fetchFavorData);
+        const data = yield call(fetchFavorData, payload);
         yield put(successGetFavor(data));
     } catch (e) {
         yield put(failGetFavor());
@@ -26,10 +26,10 @@ function* getFavorApi() {
     }
 }
 
-function* addFavorApi() {
+function* addFavorApi(payload) {
     try {
         // do api call
-        const data = yield call(addFavorData);
+        const data = yield call(addFavorData, payload);
         yield put(successAddFavor(data));
     } catch (e) {
         yield put(failAddFavor());

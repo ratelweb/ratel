@@ -1,7 +1,7 @@
 import { handleActions } from "redux-actions";
 
 const initialState = {
-    book: { search: [] },
+    book: {},
     paper: {}
 };
 
@@ -22,33 +22,23 @@ const bookReducer = handleActions(
             return {
                 ...state
             };
+        },
+        GETPAPER_REQUEST: (state, action) => {
+            return {
+                ...state
+            };
+        },
+        GETPAPER_SUCCESS: (state, action) => {
+            return {
+                ...state,
+                paper: action.payload
+            };
+        },
+        GETPAPER_FAIL: (state, action) => {
+            return {
+                ...state
+            };
         }
-
-        // case "GETBOOK_SUCCESS":
-        //     return {
-        //         ...state,
-        //         book: action.payload
-        //     };
-        // case "GETBOOK_FAIL":
-        //     return {
-        //         ...state
-        //     };
-        // case "GETPAPER_REQUEST":
-        //     return {
-        //         ...state
-        //     };
-
-        // case "GETPAPER_SUCCESS":
-        //     return {
-        //         ...state,
-        //         book: action.payload
-        //     };
-        // case "GETPAPER_FAIL":
-        //     return {
-        //         ...state
-        //     };
-        // default:
-        //     return state;
     },
     initialState
 );

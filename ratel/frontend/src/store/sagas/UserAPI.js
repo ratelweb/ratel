@@ -6,7 +6,7 @@ import { fetchLogin, fetchSign } from "../api";
 
 function* LoginApi({ payload }) {
     try {
-        const data = yield call(fetchLogin(payload));
+        const data = yield call(fetchLogin, payload);
 
         if (data) {
             //localStorage.setItem("token", responseBody.data.token);
@@ -32,8 +32,13 @@ function* LogoutApi() {
 function* SignApi({ payload }) {
     try {
         // do api call
-        const data = yield call(fetchSign(payload));
-        yield put(successSign(data));
+        const data = yield call(fetchSign, payload);
+        if (data) {
+            console.log("data", data);
+            yield put(successSign(payload.username));
+        } else {
+            yield put(successSign(data));
+        }
     } catch (e) {
         yield put(failSign());
         console.log(e);

@@ -47,6 +47,7 @@
             //height: 100px;
             margin-bottom: 50px;
             padding: 20px;
+
             .title {
                 font-size: 20px;
                 font-weight: bold;
@@ -59,6 +60,16 @@
                 img {
                     // width: 150px;
                 }
+            }
+            .favor {
+                background: #2f6e8e;
+                width: 70px;
+                padding: 10px;
+                border-radius: 3px;
+                margin: 0 auto;
+                margin-top: 30px;
+                text-align: center;
+                color: white;
             }
         }
     }

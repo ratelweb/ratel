@@ -1,10 +1,12 @@
 import React, { useEffect, useState, useCallback } from "react";
 import "./Login.scss";
 import { useSelector, useDispatch } from "react-redux";
+import { requestLogin } from "../../store/actions/User";
+import { Redirect } from "react-router-dom";
 
 const LoginPT = props => {
     const dispatch = useDispatch();
-    const me = useSelector(state => state.userReducer.userInfo);
+    const me = useSelector(state => state.userReducer.user);
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -18,7 +20,7 @@ const LoginPT = props => {
     const onSubmit = useCallback(
         e => {
             e.preventDefault();
-            dispatch(loginRequestAction({ username, password }));
+            dispatch(requestLogin({ username, password }));
         },
         [username, password]
     );
@@ -31,7 +33,7 @@ const LoginPT = props => {
                     <div className="form-box">
                         <div className="form">
                             <div className="text">아이디</div>
-                            <input type="email" value={username} onChange={onChangeUsername}></input>
+                            <input type="text" value={username} onChange={onChangeUsername}></input>
                         </div>
                         <div className="form">
                             <div className="text">비밀번호</div>
