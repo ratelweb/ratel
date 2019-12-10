@@ -37,3 +37,24 @@ def Paper(title):
             })
 
     return json.dumps(paper, ensure_ascii=False, indent="\t")
+
+'''
+ - Paper(title)
+    input : string
+    output : {
+                "paper": [
+                    {
+                        "title" : string
+                        "author": string
+                        "publisher": string
+                        "preview": string
+                    },
+                    {
+                        "title" : string
+                        "author": string
+                        "publisher": string
+                        "preview": string
+                    } ... (title : 논문제목 / author : 저자 /
+                           publisher : 출판사 / preview : p.1 미리보기
+                           검색 갯수 : 10개)
+'''
