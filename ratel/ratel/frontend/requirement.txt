@@ -1,0 +1,12 @@
+frontend 폴더에서 npm start -> localhost:3000 
+frontend 폴더에서 yarn build 후, 장고 폴더에서 python manage.py runserver -> localhost:8000
+
+ 
+(+)
+npm install --save react-router-dom
+npm install --save node-sass
+
+
+/src/assets: 이미지 파일
+/src/component: 재사용되는 컴포넌트
+/src/screens: 각 화면 폴더 (Container + Presenter + css)

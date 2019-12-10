@@ -6,45 +6,23 @@ from collections import OrderedDict
 #도서는 최대 200권 까지 추천 받을수 있음.
 #추천 도서 권수를 바꾸는 것은 밑에 표시
 #bookname = string
-def recommand(bookname):
+def recommand(isbn):
     R_book = OrderedDict()
     Recommand = OrderedDict()
 
-    client_id = "rD4sPe51j0K1J7gO37IY"  # 애플리케이션 등록시 발급 받은 값 입력
-    client_secret = "OshQx1OW9d"  # 애플리케이션 등록시 발급 받은 값 입력
-    encText = urllib.parse.quote(bookname)
-    url = "https://openapi.naver.com/v1/search/book.json?query=" + encText + "&display=1&sort=count"
-    request = urllib.request.Request(url)
-    request.add_header("X-Naver-Client-Id", client_id)
-    request.add_header("X-Naver-Client-Secret", client_secret)
-    response = urllib.request.urlopen(request)
-    rescode = response.getcode()
+    url_naru = 'http://data4library.kr/api/'
+    url_naru += 'recommandList?authKey=0fa6d79d61e3a3d1fd35769e5bd381020efa73b402adc57b894d3fd0831c21c6'
+    url_naru += '&isbn13=%s&format=json' % isbn
 
-    if (rescode == 200):
-        response_body = response.read()
-        isbn = json.loads(response_body)
+    u = urllib.request.urlopen(url_naru)
+    recommand = json.loads(u.read())
 
-        isbn_13 = isbn["items"][0]["isbn"]
-        isbn_13 = isbn_13[11:24] #네이버에서 isbn을 따면 '[10자리] [13자리]'처럼 줘서 13자리로 만드는 과정
-
-        url_naru = 'http://data4library.kr/api/'
-        url_naru += 'recommandList?authKey=0fa6d79d61e3a3d1fd35769e5bd381020efa73b402adc57b894d3fd0831c21c6'
-        url_naru += '&isbn13=%s&format=json' % isbn_13
-
-        u = urllib.request.urlopen(url_naru)
-        recommand = json.loads(u.read())
-
-        R_book["Recommand"] = []
-        for i in range(0, 20, 1): #20을 다른 숫자로 바꾸면 추천 도서 권수가 바뀜
-            R_book["Recommand"].append({
-                "bookname" : recommand["response"]["docs"][i]["book"]["bookname"],
-                "isbn" : recommand["response"]["docs"][i]["book"]["isbn13"]
-            })
-
-
-
-    else:
-        print("Error Code:" + rescode)
+    R_book["Recommand"] = []
+    for i in range(0, 200, 1): #200을 다른 숫자로 바꾸면 추천 도서 권수가 바뀜
+        R_book["Recommand"].append({
+            "bookname" : recommand["response"]["docs"][i]["book"]["bookname"],
+            "isbn" : recommand["response"]["docs"][i]["book"]["isbn13"]
+        })
 
     return json.dumps(R_book, ensure_ascii=False, indent="\t") #json 형식으로 return
 
@@ -118,7 +96,7 @@ def Bookinfo_Isbn(isbn):
 #도서 검색시 사용
 #도서 이름, 저자, 출판사, 내용요약, isbn정보
 def searchBook(bookname):
-    search = OrderedDict()
+    search1 = OrderedDict()
     Bookinfo = OrderedDict()
 
     client_id = "rD4sPe51j0K1J7gO37IY"  # 애플리케이션 등록시 발급 받은 값 입력
@@ -136,25 +114,89 @@ def searchBook(bookname):
         response_body = response.read()
         search = json.loads(response_body)
 
-        search["search"] = []
+        search1["search"] = []
         for i in range (0, search["display"], 1):
-            search["search"].append({
+            isbn13 = search["items"][i]["isbn"]
+            isbn13 = isbn13[11:24]
+            search1["search"].append({
                 "bookname": search["items"][i]["title"],
                 "author" : search["items"][i]["author"],
                 "publisher" : search["items"][i]["publisher"],
                 "description" : search["items"][i]["description"],
-                "isbn": search["items"][i]["title"]
+                "isbn": isbn13
             })
 
-        return json.dumps(search, ensure_ascii=False, indent="\t")
+        return json.dumps(search1, ensure_ascii=False, indent="\t")
+
 
 a = input("책 이름 : ") # 입력은 string
+
 print(recommand(a))
 
-print(Bookinfo_Name(a)) # 입력은 string
+#print(Bookinfo_Name(a)) # 입력은 string
 
 #test : 9788956604992 (7년의 밤)
-b = input("isbn : ")
-print(Bookinfo_Isbn(b))
+#b = input("isbn : ")
+#print(Bookinfo_Id(b))
 
-print(searchBook(a))
+#print(searchBook(a))
+
+'''
+ - recommand(isbn) ==> 책 추천
+    input : string
+    output : { "Recommand": [
+                    {
+                        "bookname": string,
+                        "isbn": string
+                    },
+                    {
+                        "bookname": string,
+                        "isbn": string
+                    }, ... (최대 200개 까지 가능 //
+                            일부 안되는것 있음 (Ex. 해리포터))
+                            
+ - Bookinfo_Name(bookname) ==> 책 이름으로 검색(isbn보다 정확도가 떨어짐 /임시방편으로 만듦)
+    input : string 
+    output : { "bookInfo": {
+                    "bookname": string,
+                    "authors": string,
+                    "publisher": string,
+                    "bookImageURL": string,
+                    "description": string,
+                    "isbn": string
+                 }
+            } 
+            
+ - Bookinfo_Id(isbn)
+    input : string
+    output : { "bookInfo": {
+                    "bookname": string,
+                    "authors": string,
+                    "publisher": string,
+                    "bookImageURL": string,
+                    "description": string,
+                    "isbn": string
+                 }
+            }
+            
+ - searchBook(bookname)
+    input : string
+    output : { "search" : [
+                    {
+                        "bookname": string,
+                        "authors": string,
+                        "publisher": string,
+                        "bookImageURL": string,
+                        "description": string,
+                        "isbn": string
+                    },
+                    {
+                        "bookname": string,
+                        "authors": string,
+                        "publisher": string,
+                        "bookImageURL": string,
+                        "description": string,
+                        "isbn": string
+                    }, ... (최대 100권까지 출력 //
+                            기본값은 10권)
+'''

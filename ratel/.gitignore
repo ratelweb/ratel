@@ -1,0 +1,6 @@
+.idea/
+static/admin/
+venv/
+ratel/ratel/__pycache__/
+ratel/ratelweb/__pycache__/
+ratel/ratelweb/migrations/__pycache__/
