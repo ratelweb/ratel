@@ -16,7 +16,7 @@ const BookPT = props => {
     return (
         <div className="wrap">
             <div className="search-bar">
-                <input type="text" className="input"></input>
+                <input type="text" className="input" placeholder="도서 검색"></input>
                 <img src={search}></img>
             </div>
             <div className="content">

@@ -53,6 +53,42 @@ export const fetchRecomData = async payload => {
     }
 };
 
+export const fetchFavorData = async payload => {
+    try {
+        const config = {
+            method: "GET",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+        };
+        const response = await fetch("", config);
+        const data = await response.json();
+        return data;
+    } catch (e) {
+        console.log(e);
+    }
+};
+
+export const addFavorData = async payload => {
+    try {
+        const config = {
+            method: "GET",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+        };
+        const response = await fetch("", config);
+        const data = await response.json();
+        return data;
+    } catch (e) {
+        console.log(e);
+    }
+};
+
 export const fetchLogin = async payload => {
     try {
         const config = {
@@ -74,7 +110,7 @@ export const fetchLogin = async payload => {
 export const fetchSign = async payload => {
     try {
         const config = {
-            method: "POST",
+            method: "GET",
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json"
