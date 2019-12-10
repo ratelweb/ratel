@@ -120,6 +120,9 @@ def searchBook(bookname):
             isbn13 = search["items"][i]["isbn"]
             isbn13 = isbn13[11:24]
 
+
+            isbn13 = search["items"][i]["isbn"]
+            isbn13 = isbn13[11:24]
             search1["search"].append({
                 "bookname": search["items"][i]["title"],
                 "author" : search["items"][i]["author"],
@@ -129,9 +132,24 @@ def searchBook(bookname):
                 "isbn": isbn13
             })
 
+
         return json.dumps(search1, ensure_ascii=False, indent="\t")
 
 
+
+
+
+if __name__ == "__main__":
+    a = input("책 이름 : ") # 입력은 string
+    #print(recommand(a))
+
+    #print(Bookinfo_Name(a)) # 입력은 string
+
+    #test : 9788956604992 (7년의 밤)
+    #b = input("isbn : ")
+    #print(Bookinfo_Isbn(b))
+
+    print(searchBook(a))
 
 
 '''
@@ -196,15 +214,4 @@ def searchBook(bookname):
                             기본값은 10권)
 '''
 
-if __name__ == "__main__":
-    a = input("책 이름 : ") # 입력은 string
-    #print(recommand(a))
-
-    #print(Bookinfo_Name(a)) # 입력은 string
-
-    #test : 9788956604992 (7년의 밤)
-    #b = input("isbn : ")
-    #print(Bookinfo_Isbn(b))
-
-    print(searchBook(a))
 
