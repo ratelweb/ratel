@@ -1,0 +1,24 @@
+.wrap1 {
+    width: 100%;
+    height: calc(100vh - 70px);
+
+    .head {
+        font-size: 30px;
+        color: #2f6e8e;
+        margin: 50px 0 0 30px;
+    }
+
+    .content {
+        width: 90%;
+        border: 1px solid black;
+        margin: 50px 0 0 30px;
+
+        .title {
+            font-size: 20px;
+            height: 30px;
+        }
+        .intro {
+            font-size: 15px;
+        }
+    }
+}

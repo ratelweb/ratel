@@ -3,10 +3,11 @@ import { GETBOOK_REQUEST, successBook, failBook } from "store/actions/Book";
 import { GETPAPER_REQUEST, successPaper, failPaper } from "store/actions/Book";
 import { fetchBookData, fetchPaperData } from "../api";
 
-function* getBookApi() {
+function* getBookApi(payload) {
     try {
         // do api call
-        const data = yield call(fetchBookData);
+        const data = yield call(fetchBookData, payload);
+
         yield put(successBook(data));
     } catch (e) {
         yield put(failBook());
@@ -14,10 +15,10 @@ function* getBookApi() {
     }
 }
 
-function* getPaperApi() {
+function* getPaperApi(payload) {
     try {
         // do api call
-        const data = yield call(fetchPaperData);
+        const data = yield call(fetchPaperData(payload));
         yield put(successPaper(data));
     } catch (e) {
         yield put(failPaper());

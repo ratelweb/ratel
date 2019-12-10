@@ -6,9 +6,10 @@ import MainCT from "screens/Main/MainCT";
 import PaperCT from "screens/Search/PaperCT";
 import BookCT from "screens/Search/BookCT";
 import RecommendCT from "screens/Recommend/RecommendCT";
+import MypageCT from "screens/Mypage/MypageCT";
 import LoginCT from "screens/Account/LoginCT";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import SignCT from "./screens/Account/SignCT";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 function App() {
     return (
@@ -22,6 +23,7 @@ function App() {
                     <Route path="/recommend" component={RecommendCT} />
                     <Route path="/login" component={LoginCT} />
                     <Route path="/sign" component={SignCT} />
+                    <Route path="/mypage" component={MypageCT} />
                 </Switch>
                 <Footer></Footer>
             </Router>

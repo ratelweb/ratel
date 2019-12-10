@@ -1,5 +1,6 @@
 const initialState = {
-    recom: []
+    recom: [],
+    favor: []
 };
 
 const recomReducer = (state = initialState, action) => {
@@ -15,6 +16,34 @@ const recomReducer = (state = initialState, action) => {
                 recom: action.payload
             };
         case "GETRECOM_FAIL":
+            return {
+                ...state
+            };
+        case "GETFAVOR_REQUEST":
+            return {
+                ...state
+            };
+
+        case "GETFAVOR_SUCCESS":
+            return {
+                ...state,
+                favor: action.payload
+            };
+        case "GETFAVOR_FAIL":
+            return {
+                ...state
+            };
+        case "ADDFAVOR_REQUEST":
+            return {
+                ...state
+            };
+
+        case "ADDFAVOR_SUCCESS":
+            return {
+                ...state,
+                favor: action.payload
+            };
+        case "ADDFAVOR_FAIL":
             return {
                 ...state
             };
