@@ -5,7 +5,10 @@ from django.shortcuts import render
 from rest_framework import views
 from rest_framework.response import Response
 from .serializers import SearchSerializer
-from ratel import bookinfo
+import bookinfo
+
+import requests
+import json
 
 from rest_framework import serializers
 import json
@@ -27,11 +30,12 @@ class BookView(views.APIView):
 
     def post(self, request, format=None):
 
-        # print(request.body["content"])
+        print(request.body.decode("utf-8"))
+        self.bookname = request.body.decode("utf-8")
         self.bookinf = bookinfo.searchBook(self.bookname)
         # print(self.bookinf)
         #results = SearchSerializer(self.bookinf, many=True).data
         results = json.dumps(self.bookinf, ensure_ascii=False)
 
-        print("results: ", results)
+        #print("results: ", results)
         return Response(results)
