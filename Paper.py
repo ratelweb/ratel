@@ -1,9 +1,7 @@
 import xml.etree.ElementTree as etree
 import json
-import sys
 from urllib.request import urlopen
 from collections import OrderedDict
-
 
 def Paper(title):
 
@@ -50,5 +48,5 @@ print(Paper(a))
                         "preview": string
                     } ... (title : 논문제목 / author : 저자 /
                            publisher : 출판사 / preview : p.1 미리보기
-                           검색 갯수 : 10개)
+                           검색 갯수 : 10개, 검색시 한글검색은 불가)
 '''
