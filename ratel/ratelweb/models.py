@@ -7,4 +7,4 @@ class User(models.Model):
 
 class Bookmark(models.Model):
     iden = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
-    bookmark = models.IntegerField(default=1234567891011)
+    bookmark = models.CharField(default="1234567891011", max_length=13)
