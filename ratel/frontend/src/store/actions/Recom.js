@@ -11,7 +11,8 @@ export const ADDFAVOR_SUCCESS = "ADDFAVOR_SUCCESS";
 export const ADDFAVOR_FAIL = "ADDFAVOR_FAIL";
 
 export const requestRecom = data => ({
-    type: "GETREOM_REQUEST"
+    type: "GETREOM_REQUEST",
+    payload: data
 });
 export const successRecom = data => ({
     type: "GETRECOM_SUCCESS",
@@ -22,7 +23,8 @@ export const failRecom = () => ({
 });
 
 export const requestGetFavor = data => ({
-    type: "GETFAVOR_REQUEST"
+    type: "GETFAVOR_REQUEST",
+    payload: data
 });
 export const successGetFavor = data => ({
     type: "GETFAVOR_SUCCESS",
@@ -33,7 +35,8 @@ export const failGetFavor = () => ({
 });
 
 export const requestAddFavor = data => ({
-    type: "ADDFAVOR_REQUEST"
+    type: "ADDFAVOR_REQUEST",
+    payload: data
 });
 export const successAddFavor = data => ({
     type: "ADDFAVOR_SUCCESS",

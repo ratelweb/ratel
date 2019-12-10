@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import "./Book.scss";
 import search from "assets/search.png";
 import { useSelector, useDispatch } from "react-redux";
@@ -9,31 +9,34 @@ const BookPT = props => {
     const dispatch = useDispatch();
     const books = useSelector(state => state.bookReducer.book, []);
 
-    useEffect(() => {
-        dispatch(requestBook());
-    }, []);
+    const [keyword, setKeyword] = useState("");
+
+    // useEffect(() => {}, []);
+
+    const searchBook = keyword => {
+        dispatch(requestBook(keyword));
+    };
+
+    const onChangeKeyword = useCallback(e => {
+        setKeyword(e.target.value);
+    });
 
     return (
         <div className="wrap">
             <div className="search-bar">
-                <input type="text" className="input" placeholder="도서 검색"></input>
-                <img src={search}></img>
+                <input type="text" className="input" placeholder="도서 검색" onChange={onChangeKeyword}></input>
+                <img src={search} onClick={() => searchBook(keyword)}></img>
             </div>
             <div className="content">
-                <div className="item">
-                    <div className="title">제목</div>
-                    <div className="intro">소개</div>
-                </div>
-                {books.map(book => {
-                    return (
-                        <Link to={`/book/${book.id}`}>
-                            <div className="item">
-                                <div className="title">{book.text}</div>
+                {books.search &&
+                    books.search.map(book => {
+                        return (
+                            <div className="item" key={book.isbn}>
+                                <div className="title">{book.bookname.replace(/(<([^>]+)>)/gi, "")}</div>
+                                <div className="author">{book.author}</div>
                             </div>
-                        </Link>
-                    );
-                })}
-                }
+                        );
+                    })}
             </div>
         </div>
     );
