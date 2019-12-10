@@ -6,6 +6,7 @@ from rest_framework import views
 from rest_framework.response import Response
 from .serializers import SearchSerializer
 from ratel import bookinfo
+
 from rest_framework import serializers
 import json
 #from ratel import bookinfo
@@ -25,9 +26,12 @@ class BookView(views.APIView):
     bookinf = {}
 
     def post(self, request, format=None):
+
+        # print(request.body["content"])
         self.bookinf = bookinfo.searchBook(self.bookname)
         # print(self.bookinf)
         #results = SearchSerializer(self.bookinf, many=True).data
         results = json.dumps(self.bookinf, ensure_ascii=False)
+
         print("results: ", results)
         return Response(results)

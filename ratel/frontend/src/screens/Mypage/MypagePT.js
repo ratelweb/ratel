@@ -1,36 +1,35 @@
 import React, { useEffect, useState } from "react";
-import "./Book.scss";
-import search from "assets/search.png";
+import "./Mypage.scss";
 import { useSelector, useDispatch } from "react-redux";
-import { requestBook } from "../../store/actions/Book";
-import { Link } from "react-router-dom";
+import { requestGetFavor } from "../../store/actions/Recom";
 
-const PaperPT = props => {
+const MypagePT = props => {
     // const dispatch = useDispatch();
-    //const books = useSelector(state => state.bookReducer.book, []);
+    //const favors = useSelector(state => state.recomReducer.favor, []);
+    //const user = useSelector(state => state.userReducer.user, []);
 
     useEffect(() => {
-        //dispatch(requestBook());
+        //dispatch(requestGetFavor());
     }, []);
 
     return (
-        <div className="wrap">
-            <div className="search-bar">
-                <input type="text" className="input" placeholder="논문 검색"></input>
-                <img src={search}></img>
-            </div>
+        <div className="wrap1">
+            {/* <div className="head">{user.id}님의 즐겨찾기 목록</div> */}
+            <div className="head">님의 즐겨찾기 목록</div>
             <div className="content">
                 <div className="item">
                     <div className="title">제목</div>
                     <div className="intro">소개</div>
                 </div>
-                {/* books.map(book => {
+
+                {/* favors.map(favor => {
                                     return (
-                                        <Link to={`/book/${book.id}`}>
+                                        <Link to={`/recommend/${recom.id}`}>
                                             <div
                                                 className="item"
                                             >
-                                                <div className="title">{recom.title}</div>
+                                                <div className="title">{favor.title}</div>
+                                                <div className="intro">{favor.intro}</div>
                                             </div>
                                         </Link>
                                     );
@@ -40,4 +39,4 @@ const PaperPT = props => {
     );
 };
 
-export default PaperPT;
+export default MypagePT;
