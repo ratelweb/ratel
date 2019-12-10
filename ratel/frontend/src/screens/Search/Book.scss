@@ -4,11 +4,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow-y: scroll;
 
     .search-bar {
         margin-top: 100px;
         width: 400px;
-        height: 30px;
+        height: 40px;
         border: 2px solid #2f6e8e;
         border-radius: 5px;
         display: flex;
@@ -16,6 +17,7 @@
 
         .input {
             width: 350px;
+            height: 38px;
             font-size: 15px;
             border: none;
             outline: 0;
@@ -28,24 +30,46 @@
         }
     }
 
+    .result {
+        margin-top: 50px;
+    }
+
     .content {
-        width: 90%;
+        width: 50%;
         //  border: 1px solid black;
         margin: 50px 0 0 30px;
-        overflow-y: scroll;
 
         .item {
-            border: 1px solid black;
+            border: 1px solid #2f6e8e;
+            //background: #cbcecf;
             border-radius: 3px;
-            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.21);
-            height: 100px;
-            margin-bottom: 10px;
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.21);
+            //height: 100px;
+            margin-bottom: 50px;
+            padding: 20px;
+
             .title {
                 font-size: 20px;
                 font-weight: bold;
-                height: 30px;
+                //height: 30px;
+                //margin: 20px 0 0 20px;
             }
-            .author {
+            .text {
+                margin-top: 20px;
+                text-align: center;
+                img {
+                    // width: 150px;
+                }
+            }
+            .favor {
+                background: #2f6e8e;
+                width: 70px;
+                padding: 10px;
+                border-radius: 3px;
+                margin: 0 auto;
+                margin-top: 30px;
+                text-align: center;
+                color: white;
             }
         }
     }

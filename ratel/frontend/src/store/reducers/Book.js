@@ -1,40 +1,45 @@
+import { handleActions } from "redux-actions";
+
 const initialState = {
-    book: [],
-    paper: []
+    book: {},
+    paper: {}
 };
 
-const bookReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case "GETBOOK_REQUEST":
+const bookReducer = handleActions(
+    {
+        GETBOOK_REQUEST: (state, action) => {
             return {
                 ...state
             };
-
-        case "GETBOOK_SUCCESS":
+        },
+        GETBOOK_SUCCESS: (state, action) => {
             return {
                 ...state,
                 book: action.payload
             };
-        case "GETBOOK_FAIL":
+        },
+        GETBOOK_FAIL: (state, action) => {
             return {
                 ...state
             };
-        case "GETPAPER_REQUEST":
+        },
+        GETPAPER_REQUEST: (state, action) => {
             return {
                 ...state
             };
-
-        case "GETPAPER_SUCCESS":
+        },
+        GETPAPER_SUCCESS: (state, action) => {
             return {
                 ...state,
-                book: action.payload
+                paper: action.payload
             };
-        case "GETPAPER_FAIL":
+        },
+        GETPAPER_FAIL: (state, action) => {
             return {
                 ...state
             };
-        default:
-            return state;
-    }
-};
+        }
+    },
+    initialState
+);
 export default bookReducer;

@@ -8,11 +8,11 @@ output : True : 존재      False : 없음
 '''
 
 def search_user(mail):
-    entry = User.objects.filter(email = mail)
-    if entry.exists():
+    if User.objects.filter(email=mail).exists():
         return True
     else:
         return False
+
 
 '''
 기능 : 이메일로 DB에 유저 추가
@@ -26,6 +26,7 @@ def add_user(mail, pwd):
     else:
         u = User.objects.create(email = mail, password = pwd)
         return u
+
 
 '''
 기능 : 이메일, password로 DB에서 검사
@@ -42,10 +43,11 @@ def check_login(mail, pwd):
 (회원탈퇴 할 때 사용)
 input : email
 '''
+
+
 def delete_user(mail):
     entry = User.objects.filter(email=mail)
     entry.delete()
-
 
 
 '''
@@ -53,23 +55,28 @@ def delete_user(mail):
 input : email, isbn
 output : 즐겨찾기 되어있으면 True, 안되어있으면 False
 '''
+
+
 def search_bookmark(mail, isbn_i):
     u = User.objects.get(email=mail)
 
-    if Bookmark.objects.filter(iden = u, bookmark = isbn_i).exists():
+    if Bookmark.objects.filter(iden=u, bookmark=isbn_i).exists():
         return True
     else:
         return False
+
 
 '''
 기능 : 이메일과 ISBN으로 DB에 해당 이메일에 ISBN 저장
 (즐겨찾기 할 때 사용, 이미 즐겨찾기 되어있으면 "already exist" 출력됨)
 input : email, isbn
 '''
+
+
 def add_bookmark(mail, isbn):
     user = User.objects.get(email=mail)
 
-    if Bookmark.objects.filter(iden = user, bookmark = isbn).exists():
+    if Bookmark.objects.filter(iden=user, bookmark=isbn).exists():
         print("already exist")
     Bookmark.objects.create(iden = user, bookmark = isbn)
     return True
@@ -79,10 +86,12 @@ def add_bookmark(mail, isbn):
 (즐겨찾기 해제 할 때 사용)
 input : email, isbn
 '''
+
+
 def delete_bookmark(mail, isbn):
     user = User.objects.get(email=mail)
 
-    Bookmark.objects.filter(iden = user, bookmark = isbn).delete()
+    Bookmark.objects.filter(iden=user, bookmark=isbn).delete()
 
 
 '''
@@ -91,10 +100,12 @@ def delete_bookmark(mail, isbn):
 input : email
 output : 해당 email의 유저가 즐겨찾기한 모든 ISBN (사이에 ;넣어서)
 '''
+
+
 def find_isbn(mail):
     list = ""
     u = User.objects.get(email=mail)
-    bookmark_set = Bookmark.objects.filter(iden = u)
+    bookmark_set = Bookmark.objects.filter(iden=u)
     for p in bookmark_set:
         if (p != bookmark_set.first()):
             list += ";"

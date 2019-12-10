@@ -40,8 +40,8 @@ const Header = props => {
                     <Link to="/mypage" className="login">
                         마이페이지
                     </Link>
-                    <Link to="/mypage" className="sign">
-                        <img src={require("assets/user.png")}></img>
+                    <Link to="/" className="sign">
+                        로그아웃
                     </Link>
                 </div>
             ) : (

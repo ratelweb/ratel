@@ -33,13 +33,13 @@ export const failLogout = () => ({
 });
 
 export const requestSign = data => ({
-    type: "LOGIN_REQUEST",
+    type: "SIGN_REQUEST",
     payload: data
 });
 export const successSign = data => ({
-    type: "LOGIN_SUCCESS",
+    type: "SIGN_SUCCESS",
     payload: data
 });
 export const failSign = () => ({
-    type: "LOGIN_FAIL"
+    type: "SIGN_FAIL"
 });

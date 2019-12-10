@@ -41,21 +41,23 @@ class BookView(views.APIView):
         #print("results: ", results)
         return Response(results)
 
+
 class SignView(views.APIView):
 
     id = {}
 
     def post(self, request):
-            print(request.body.decode("utf-8"))
-            self.id = json.loads(request.body.decode("utf-8"))
+        print(request.body.decode("utf-8"))
+        self.id = json.loads(request.body.decode("utf-8"))
 
-            results = dbfunc.search_user(self.id["username"])
-            if results:
-                return Response(False)
-            dbfunc.add_user(self.id["username"], self.id["passward"])
+        results = dbfunc.search_user(self.id["username"])
+        if results:
+            return Response(False)
+        dbfunc.add_user(self.id["username"], self.id["passward"])
 
-            # print("results: ", results)
-            return Response(True)
+        # print("results: ", results)
+        return Response(True)
+
 
 class LoginView(views.APIView):
     id = {}
@@ -71,6 +73,7 @@ class LoginView(views.APIView):
         # print("results: ", results)
         return Response(False)
 
+
 class FavorView(views.APIView):
     id = {}
 
@@ -81,6 +84,7 @@ class FavorView(views.APIView):
         #print("results: ", results)
         return Response(dbfunc.add_bookmark(self.id["username"], self.id["isbn"]))
 
+
 class RecommendView(views.APIView):
     id = ""
     recommendinf = {}
@@ -88,13 +92,14 @@ class RecommendView(views.APIView):
     def post(self, request):
         print(request.body.decode("utf-8"))
         self.id = request.body.decode("utf-8")
-        ###self.recommendinf = dbfunc.(self.bookname)
+        # self.recommendinf = dbfunc.(self.bookname)
         # print(self.bookinf)
         #results = SearchSerializer(self.bookinf, many=True).data
         results = self.recommendinf
 
         #print("results: ", results)
         return Response(results)
+
 
 class PaperView(views.APIView):
     papername = "해리포터"
