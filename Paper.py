@@ -1,10 +1,13 @@
+#-*- coding: utf-8 -*-
+
 import xml.etree.ElementTree as etree
 import json
+
 from urllib.request import urlopen
 from collections import OrderedDict
 
 def Paper(title):
-
+    title = website.text.encode('utf8')
     paper = OrderedDict()
 
     url = "http://api.dbpia.co.kr/v2/search/search.xml"

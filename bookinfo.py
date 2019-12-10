@@ -123,6 +123,7 @@ def searchBook(bookname):
                 "author" : search["items"][i]["author"],
                 "publisher" : search["items"][i]["publisher"],
                 "description" : search["items"][i]["description"],
+                "image" : search["items"][i]["image"],
                 "isbn": isbn13
             })
 
@@ -131,7 +132,7 @@ def searchBook(bookname):
 
 a = input("책 이름 : ") # 입력은 string
 
-print(recommand(a))
+#print(recommand(a))
 
 #print(Bookinfo_Name(a)) # 입력은 string
 
@@ -139,7 +140,7 @@ print(recommand(a))
 #b = input("isbn : ")
 #print(Bookinfo_Id(b))
 
-#print(searchBook(a))
+print(searchBook(a))
 
 '''
  - recommand(isbn) ==> 책 추천
@@ -188,6 +189,7 @@ print(recommand(a))
                         "publisher": string,
                         "bookImageURL": string,
                         "description": string,
+                        "image": string,
                         "isbn": string
                     },
                     {
@@ -196,6 +198,7 @@ print(recommand(a))
                         "publisher": string,
                         "bookImageURL": string,
                         "description": string,
+                        "image": string,
                         "isbn": string
                     }, ... (최대 100권까지 출력 //
                             기본값은 10권)
