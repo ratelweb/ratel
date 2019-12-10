@@ -25,7 +25,8 @@ SECRET_KEY = '+9lx-x(sb-ty#wz5^)p$-u2s14$u8b6953-#y6o&tq*r&)ahl&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['3.15.209.236', 'localhost', '127.0.0.1', 'ratel.coi.kr', 'ec2-3-15-209-236.us-east-2.compute.amazonaws.com']
+ALLOWED_HOSTS = ['3.15.209.236', 'localhost', '127.0.0.1',
+                 'ratel.coi.kr', 'ec2-3-15-209-236.us-east-2.compute.amazonaws.com']
 
 
 # Application definition
@@ -39,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -57,6 +59,14 @@ ROOT_URLCONF = 'ratel.urls'
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:3000',
 )
+
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
+#         'rest_framework.authentication.SessionAuthentication',
+#     ),
+
+
+# }
 
 TEMPLATES = [
     {
