@@ -4,18 +4,31 @@ from django.shortcuts import render
 #from .models import Books
 from rest_framework import views
 from rest_framework.response import Response
-from .serializers import YourSerializer
+from .serializers import SearchSerializer
+import bookinfo
+from rest_framework import serializers
+import json
+#from ratel import bookinfo
 # Create your views here.
+
 
 def homepage(request):
     return render(request, 'homepage.html')
 
+
 def subpage(request):
     return render(request, 'subpage.html')
 
-class BookView(views.APIView):
 
-    def get(self, request, format=None):
-        yourdata= [{"likes": 5, "comments": 10}, {"likes": 4, "comments": 23}]
-        results = YourSerializer(yourdata, many=True).data
+class BookView(views.APIView):
+    bookname = "해리포터"
+    bookinf = {}
+
+    def post(self, request, format=None):
+        # print(request.body["content"])
+        self.bookinf = bookinfo.searchBook(self.bookname)
+        # print(self.bookinf)
+        #results = SearchSerializer(self.bookinf, many=True).data
+        results = json.dumps(self.bookinf, ensure_ascii=False)
+        # print("results: ", results)
         return Response(results)

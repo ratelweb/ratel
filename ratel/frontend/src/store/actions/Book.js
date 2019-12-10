@@ -7,7 +7,8 @@ export const GETPAPER_SUCCESS = "GETPAPER_SUCCESS";
 export const GETPAPER_FAIL = "GETPAPER_FAIL";
 
 export const requestBook = data => ({
-    type: "GETBOOK_REQUEST"
+    type: "GETBOOK_REQUEST",
+    payload: data
 });
 export const successBook = data => ({
     type: "GETBOOK_SUCCESS",
@@ -18,7 +19,8 @@ export const failBook = () => ({
 });
 
 export const requestPaper = data => ({
-    type: "GETPAPER_REQUEST"
+    type: "GETPAPER_REQUEST",
+    payload: data
 });
 export const successPaper = data => ({
     type: "GETPAPER_SUCCESS",

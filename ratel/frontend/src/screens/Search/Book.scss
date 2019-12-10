@@ -30,15 +30,23 @@
 
     .content {
         width: 90%;
-        border: 1px solid black;
+        //  border: 1px solid black;
         margin: 50px 0 0 30px;
+        overflow-y: scroll;
 
-        .title {
-            font-size: 20px;
-            height: 30px;
-        }
-        .intro {
-            font-size: 15px;
+        .item {
+            border: 1px solid black;
+            border-radius: 3px;
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.21);
+            height: 100px;
+            margin-bottom: 10px;
+            .title {
+                font-size: 20px;
+                font-weight: bold;
+                height: 30px;
+            }
+            .author {
+            }
         }
     }
 }

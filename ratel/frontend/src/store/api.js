@@ -1,17 +1,19 @@
+import { putResolve } from "redux-saga/effects";
+
 export const fetchBookData = async payload => {
     try {
+        console.log("payload: ", payload);
         const config = {
-            method: "GET",
+            method: "POST",
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(payload)
+            body: payload
         };
-        const response = await fetch("http://localhost:8000/api/books/", config);
+        const response = await fetch("http://localhost:8000/api/book/", config);
         const data = await response.json();
-        console.log("Data: ", data);
-        return data;
+        return JSON.parse(data);
     } catch (e) {
         console.log(e);
     }
@@ -25,7 +27,7 @@ export const fetchPaperData = async payload => {
                 Accept: "application/json",
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(payload)
+            body: payload
         };
         const response = await fetch("", config);
         const data = await response.json();
@@ -43,7 +45,43 @@ export const fetchRecomData = async payload => {
                 Accept: "application/json",
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(payload)
+            body: payload
+        };
+        const response = await fetch("", config);
+        const data = await response.json();
+        return data;
+    } catch (e) {
+        console.log(e);
+    }
+};
+
+export const fetchFavorData = async payload => {
+    try {
+        const config = {
+            method: "GET",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json"
+            },
+            body: payload
+        };
+        const response = await fetch("", config);
+        const data = await response.json();
+        return data;
+    } catch (e) {
+        console.log(e);
+    }
+};
+
+export const addFavorData = async payload => {
+    try {
+        const config = {
+            method: "GET",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json"
+            },
+            body: payload
         };
         const response = await fetch("", config);
         const data = await response.json();
@@ -61,7 +99,7 @@ export const fetchLogin = async payload => {
                 Accept: "application/json",
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(payload)
+            body: payload
         };
         const response = await fetch("", config);
         const data = await response.json();
@@ -74,12 +112,12 @@ export const fetchLogin = async payload => {
 export const fetchSign = async payload => {
     try {
         const config = {
-            method: "POST",
+            method: "GET",
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(payload)
+            body: payload
         };
         const response = await fetch("", config);
         const data = await response.json();
