@@ -5,19 +5,26 @@
     flex-direction: row;
     align-items: center;
     cursor: pointer;
-    .logo {
-        display: flex;
-        align-items: center;
+    height: 70px;
 
-        .logo-icon {
-            width: 55px;
-            height: 55px;
-        }
-        .logo-text {
-            font-size: 20px;
-            margin-left: 20px;
-            color: #2f6e8e;
-            font-weight: bold;
+    .logo {
+        //flex: 1;
+        a {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            width: 100%;
+            .logo-icon {
+                width: 55px;
+                height: 55px;
+            }
+            .logo-text {
+                font-size: 20px;
+                margin-left: 50px;
+                color: #2f6e8e;
+                font-weight: bold;
+                //  width: auto;
+            }
         }
     }
 
@@ -30,6 +37,21 @@
     .menu:hover {
         color: #2f6e8e;
         font-weight: bold;
+    }
+    .account {
+        width: 140px;
+        margin-right: 30px;
+        //text-align: center;
+        display: flex;
+        a {
+            text-decoration: none;
+            color: black;
+            flex: 1;
+        }
+        a:hover {
+            color: #2f6e8e;
+            font-weight: bold;
+        }
     }
     .user {
         width: 60px;
