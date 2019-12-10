@@ -48,10 +48,11 @@ class SignView(views.APIView):
             print(request.body.decode("utf-8"))
             self.id = request.body.decode("utf-8")
 
-            # 데이터베이스에 넣기
-            dbfunc.add_user(id)
-            results = {}
-            results['id'] = dbfunc.search_user(id)
+            results = dbfunc.search_user(self.id["username"])
+            if results:
+                return Response(False)
+            dbfunc.add_user(self.id["username"])
+            results = dbfunc.search_user(self.id["username"])
 
             # print(self.bookinf)
             # results = SearchSerializer(self.bookinf, many=True).data
@@ -72,6 +73,22 @@ class RecommendView(views.APIView):
         # print(self.bookinf)
         #results = SearchSerializer(self.bookinf, many=True).data
         results = self.recommendinf
+
+        #print("results: ", results)
+        return Response(results)
+
+class PaperView(views.APIView):
+    papername = "해리포터"
+    paperinf = {}
+
+    def post(self, request):
+
+        print(request.body.decode("utf-8"))
+        self.papername = request.body.decode("utf-8")
+        self.paperinf = bookinfo.recommand(self.papername)
+        # print(self.bookinf)
+        #results = SearchSerializer(self.bookinf, many=True).data
+        results = self.paperinf
 
         #print("results: ", results)
         return Response(results)
