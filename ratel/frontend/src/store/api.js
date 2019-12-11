@@ -1,4 +1,5 @@
 export const fetchBookData = async payload => {
+    console.log("payload: ", payload);
     try {
         const config = {
             method: "POST",
@@ -10,6 +11,7 @@ export const fetchBookData = async payload => {
         };
         const response = await fetch("http://localhost:8000/api/book/", config);
         const data = await response.json();
+        console.log("Data: ", data);
         return JSON.parse(data);
     } catch (e) {
         console.log(e);
@@ -53,6 +55,7 @@ export const fetchRecomData = async payload => {
 };
 
 export const fetchFavorData = async payload => {
+    console.log("payload, ", payload);
     try {
         const config = {
             method: "POST",

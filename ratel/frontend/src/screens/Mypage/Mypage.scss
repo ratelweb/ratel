@@ -10,15 +10,30 @@
 
     .content {
         width: 90%;
-        border: 1px solid black;
         margin: 50px 0 0 30px;
 
-        .title {
-            font-size: 20px;
-            height: 30px;
-        }
-        .intro {
-            font-size: 15px;
+        .item {
+            border: 1px solid #2f6e8e;
+            //background: #cbcecf;
+            border-radius: 3px;
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.21);
+            //height: 100px;
+            margin-bottom: 50px;
+            padding: 20px;
+
+            .title {
+                font-size: 20px;
+                font-weight: bold;
+                //height: 30px;
+                //margin: 20px 0 0 20px;
+            }
+            .text {
+                margin-top: 20px;
+                text-align: center;
+                img {
+                    // width: 150px;
+                }
+            }
         }
     }
 }

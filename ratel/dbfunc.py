@@ -7,6 +7,7 @@ input : email
 output : True : 존재      False : 없음
 '''
 
+
 def search_user(mail):
     if User.objects.filter(email=mail).exists():
         return True
@@ -20,23 +21,28 @@ def search_user(mail):
 input : email
 output : User Table의 추가된 유저 쿼리셋(사용할 일 없을듯??)
 '''
+
+
 def add_user(mail, pwd):
     if User.objects.filter(email=mail).exists():
         print("already exist")
     else:
-        u = User.objects.create(email = mail, password = pwd)
+        u = User.objects.create(email=mail, password=pwd)
         return u
 
 
 '''
 기능 : 이메일, password로 DB에서 검사
 '''
+
+
 def check_login(mail, pwd):
-    entry = User.objects.get(email = mail)
+    entry = User.objects.get(email=mail)
     if entry.password == pwd:
         return True
     else:
         return False
+
 
 '''
 기능 : 이메일로 DB에서 유저 삭제
@@ -78,8 +84,9 @@ def add_bookmark(mail, isbn):
 
     if Bookmark.objects.filter(iden=user, bookmark=isbn).exists():
         print("already exist")
-    Bookmark.objects.create(iden = user, bookmark = isbn)
+    Bookmark.objects.create(iden=user, bookmark=isbn)
     return True
+
 
 '''
 기능 : 이메일과 ISBN으로 DB에 해당 데이터 삭제
@@ -103,6 +110,7 @@ output : 해당 email의 유저가 즐겨찾기한 모든 ISBN (사이에 ;넣�
 
 
 def find_isbn(mail):
+    print("mail", mail)
     list = ""
     u = User.objects.get(email=mail)
     bookmark_set = Bookmark.objects.filter(iden=u)
@@ -112,3 +120,33 @@ def find_isbn(mail):
         list += p.bookmark
 
     return list
+
+
+def list_bookmark(username):
+    # print("mail", username)
+    # print(type(username))
+    # temp = username
+    # print("temp", temp)
+    # print(type(temp))
+    list = []
+    # u = User.objects.filter(email=username)
+    # print(u)
+
+    # u = User.objects.get(email=username)
+    # print(u)
+
+    try:
+        u = User.objects.get(email=username)
+    except User.DoesNotExist:
+        u = None
+
+    bookmark_set = Bookmark.objects.filter(iden=u)
+    for p in bookmark_set:
+        list.append(p.bookmark)
+
+    return list
+
+
+def id_return(mail):
+    u = User.objects.get(email=mail)
+    return u.id

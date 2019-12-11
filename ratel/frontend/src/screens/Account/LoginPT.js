@@ -6,7 +6,7 @@ import { Redirect } from "react-router-dom";
 
 const LoginPT = props => {
     const dispatch = useDispatch();
-    const me = useSelector(state => state.userReducer.user);
+    const user = useSelector(state => state.userReducer.user);
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -27,7 +27,7 @@ const LoginPT = props => {
 
     return (
         <div className="login-wrap">
-            {/* {me && <Redirect to="/"></Redirect>} */}
+            {user == username && <Redirect to="/"></Redirect>}
             <div className="login-box">
                 <form onSubmit={onSubmit}>
                     <div className="form-box">
