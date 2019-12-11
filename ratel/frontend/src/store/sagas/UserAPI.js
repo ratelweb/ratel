@@ -10,7 +10,9 @@ function* LoginApi({ payload }) {
 
         if (data) {
             //localStorage.setItem("token", responseBody.data.token);
-            localStorage.setItem("id", JSON.stringify(data.id));
+            localStorage.setItem("id", JSON.stringify(payload.username));
+            yield put(successLogin(payload.username));
+        } else {
             yield put(successLogin(data));
         }
     } catch (e) {

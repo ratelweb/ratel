@@ -4,11 +4,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { requestRecom } from "../../store/actions/Recom";
 
 const RecommendPT = props => {
-    // const dispatch = useDispatch();
-    //const recoms = useSelector(state => state.recomReducer.recom, []);
+    const dispatch = useDispatch();
+    const recoms = useSelector(state => state.recomReducer.recom, []);
 
     useEffect(() => {
-        //dispatch(requestBook());
+        dispatch(requestRecom());
     }, []);
 
     return (
