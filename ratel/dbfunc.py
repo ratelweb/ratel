@@ -112,3 +112,12 @@ def find_isbn(mail):
         list += p.bookmark
 
     return list
+
+def list_bookmark(mail):
+    list = []
+    u = User.objects.get(email=mail)
+    bookmark_set = Bookmark.objects.filter(iden=u)
+    for p in bookmark_set:
+        list.append(p.bookmark)
+
+    return list
