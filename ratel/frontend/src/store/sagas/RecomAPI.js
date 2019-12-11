@@ -19,6 +19,7 @@ function* getFavorApi(payload) {
     try {
         // do api call
         const data = yield call(fetchFavorData, payload);
+        console.log("data: ", data);
         yield put(successGetFavor(data));
     } catch (e) {
         yield put(failGetFavor());

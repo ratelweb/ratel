@@ -4,36 +4,44 @@ import { useSelector, useDispatch } from "react-redux";
 import { requestGetFavor } from "../../store/actions/Recom";
 
 const MypagePT = props => {
-    // const dispatch = useDispatch();
-    //const favors = useSelector(state => state.recomReducer.favor, []);
-    //const user = useSelector(state => state.userReducer.user, []);
+    const dispatch = useDispatch();
+    const favors = useSelector(state => state.recomReducer.favor.favors, []);
+    const user = useSelector(state => state.userReducer.user, []);
+    const user1 = localStorage.getItem("id");
 
     useEffect(() => {
-        //dispatch(requestGetFavor());
+        dispatch(requestGetFavor(user));
     }, []);
 
     return (
         <div className="wrap1">
-            {/* <div className="head">{user.id}님의 즐겨찾기 목록</div> */}
-            <div className="head">님의 즐겨찾기 목록</div>
+            <div className="head">{user1} 님의 즐겨찾기 목록</div>
             <div className="content">
-                <div className="item">
-                    <div className="title">제목</div>
-                    <div className="intro">소개</div>
-                </div>
-
-                {/* favors.map(favor => {
-                                    return (
-                                        <Link to={`/recommend/${recom.id}`}>
-                                            <div
-                                                className="item"
-                                            >
-                                                <div className="title">{favor.title}</div>
-                                                <div className="intro">{favor.intro}</div>
-                                            </div>
-                                        </Link>
-                                    );
-                                })} */}
+                {favors &&
+                    favors.map(favor => {
+                        return (
+                            <div className="item" key={favor.isbn}>
+                                <div className="title">{favor.bookname.replace(/(<([^>]+)>)/gi, "")}</div>
+                                <div className="text">저자: {favor.author.replace(/(<([^>]+)>)/gi, "")}</div>
+                                <div className="text">
+                                    <img src={favor.bookImageURL}></img>
+                                </div>
+                                <div className="text">
+                                    {favor.description
+                                        .replace(/(<([^>]+)>)/gi, "")
+                                        .split("&#x0D;")
+                                        .map(line => {
+                                            return (
+                                                <span>
+                                                    {line}
+                                                    <br />
+                                                </span>
+                                            );
+                                        })}
+                                </div>
+                            </div>
+                        );
+                    })}
             </div>
         </div>
     );

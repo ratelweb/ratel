@@ -91,30 +91,39 @@ class FavorsView(views.APIView):
     favorsinf = OrderedDict()
     booklist = []
 
+    # booklist = ""
+
+
     def post(self, request):
         print(request.body.decode("utf-8"))
         self.username = request.body.decode("utf-8")
         booklist = dbfunc.list_bookmark(self.username)
 
+        # temp = dbfunc.id_return(self.id)
+        # print("#####", temp)
+        # booklist = dbfunc.find_isbn(self.id)
+
+        print("booklist", booklist)
+
         self.favorsinf['favors'] = []
         for i in booklist:
+            # print("i", type(i))
+            # print("i", str(i))
             temp = bookinfo.Bookinfo_Isbn(i)
+            print(temp)
             self.favorsinf["favors"].append({
-                "bookname": temp['bookinfo']['bookname'],
-                "author": temp['bookinfo']['author'],
-                "publisher": temp['bookinfo']['publisher'],
-                "bookImageURL": temp['bookinfo']['bookname'],
-                "description": temp['bookinfo']['author'],
-                "isbn": temp['bookinfo']['isbn'],
+                "bookname": temp['bookInfo']['bookname'],
+                "author": temp['bookInfo']['authors'],
+                "publisher": temp['bookInfo']['publisher'],
+                "bookImageURL": temp['bookInfo']['bookname'],
+                "description": temp['bookInfo']['description'],
+                "isbn": temp['bookInfo']['isbn'],
             })
 
-        # self.recommendinf = dbfunc.(self.bookname)
-        # print(self.bookinf)
-        #results = SearchSerializer(self.bookinf, many=True).data
-        self.favorsinf = json.dumps(self.favorsinf, ensure_ascii=False)
-        #print("results: ", results)
-        return Response(self.favorsinf)
-
+        # results = SearchSerializer(self.bookinf, many=True).data
+        results = json.dumps(self.favorsinf, ensure_ascii=False)
+        print("results: ", results)
+        return Response(results)
 
 class PaperView(views.APIView):
     papername = "해리포터"

@@ -18,7 +18,7 @@ const BookPT = props => {
     };
 
     const addFavor = (isbn, user) => {
-        const info = { isbn: isbn, user: user };
+        const info = { isbn: isbn, username: "min" };
         console.log("info: ", info);
         dispatch(requestAddFavor(info));
     };

@@ -39,6 +39,7 @@
         font-weight: bold;
     }
     .account {
+        flex: 1;
         width: 140px;
         margin-right: 30px;
         //text-align: center;
@@ -51,14 +52,6 @@
         a:hover {
             color: #2f6e8e;
             font-weight: bold;
-        }
-    }
-    .user {
-        width: 60px;
-
-        .user-icon {
-            width: 30px;
-            height: 30px;
         }
     }
 }
