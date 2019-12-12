@@ -6,20 +6,16 @@ import { Redirect } from "react-router-dom";
 
 const SignPT = props => {
     const dispatch = useDispatch();
-    const user = useSelector(state => state.userReducer.user);
+    const sign = useSelector(state => state.userReducer.sign);
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [password2, setPassword2] = useState("");
 
     const onChangeUsername = useCallback(e => {
         setUsername(e.target.value);
     });
     const onChangePassword = useCallback(e => {
         setPassword(e.target.value);
-    });
-    const onChangePassword2 = useCallback(e => {
-        setPassword2(e.target.value);
     });
     const onSubmit = useCallback(
         e => {
@@ -31,7 +27,6 @@ const SignPT = props => {
 
     return (
         <div className="login-wrap">
-            {user == username && <Redirect to="/"></Redirect>}
             <div className="login-box">
                 <div className="form-box">
                     <div className="form">
@@ -42,10 +37,7 @@ const SignPT = props => {
                         <div className="text">비밀번호</div>
                         <input type="password" value={password} onChange={onChangePassword}></input>
                     </div>
-                    {/* <div className="form">
-                        <div className="text">비밀번호 확인</div>
-                        <input type="password" value={password2} onChange={onChangePassword2}></input>
-                    </div> */}
+                    {sign == true ? <div className="notice">회원 가입이 완료 되었습니다.</div> : null}
                 </div>
                 <button onClick={onSubmit}>회원가입</button>
             </div>

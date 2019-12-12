@@ -123,23 +123,9 @@ def find_isbn(mail):
 
 
 def list_bookmark(username):
-    # print("mail", username)
-    # print(type(username))
-    # temp = username
-    # print("temp", temp)
-    # print(type(temp))
+
     list = []
-    # u = User.objects.filter(email=username)
-    # print(u)
-
-    # u = User.objects.get(email=username)
-    # print(u)
-
-    try:
-        u = User.objects.get(email=username)
-    except User.DoesNotExist:
-        u = None
-
+    u = User.objects.get(email=username)
     bookmark_set = Bookmark.objects.filter(iden=u)
     for p in bookmark_set:
         list.append(p.bookmark)
