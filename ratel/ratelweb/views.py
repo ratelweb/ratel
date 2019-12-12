@@ -35,11 +35,8 @@ class BookView(views.APIView):
         print(request.body.decode("utf-8"))
         self.bookname = request.body.decode("utf-8")
         self.bookinf = bookinfo.searchBook(self.bookname)
-        # print(self.bookinf)
-        #results = SearchSerializer(self.bookinf, many=True).data
         results = json.dumps(self.bookinf, ensure_ascii=False)
 
-        #print("results: ", results)
         return Response(results)
 
 
@@ -56,7 +53,6 @@ class SignView(views.APIView):
             return Response(False)
         dbfunc.add_user(self.id["username"], self.id["password"])
 
-        # print("results: ", results)
         return Response(True)
 
 
@@ -71,7 +67,6 @@ class LoginView(views.APIView):
         if results:
             return Response(True)
 
-        # print("results: ", results)
         return Response(False)
 
 
@@ -82,25 +77,35 @@ class FavorView(views.APIView):
         print(request.body.decode("utf-8"))
         self.id = json.loads(request.body.decode("utf-8"))
 
-        #print("results: ", results)
         return Response(dbfunc.add_bookmark(self.id["username"], self.id["isbn"]))
 
 
 class FavorsView(views.APIView):
-    username = {}
+
+    username = ""
+    username2 = ""
+    username3 = "min"
+
     favorsinf = OrderedDict()
+
     booklist = []
 
     def post(self, request):
         print(request.body.decode("utf-8"))
         self.username = json.loads(request.body.decode("utf-8"))
-        print("username", self.username)
-        self.booklist = dbfunc.list_bookmark(self.username)
+
+        self.username2 = request.body.decode("utf-8")
+        print("username:", self.username)
+        print("username2:", self.username2)
+        print("username3:", self.username3)
+
+        booklist = dbfunc.list_bookmark(self.username)
 
         print("booklist", self.booklist)
 
         self.favorsinf['favors'] = []
-        for i in self.booklist:
+
+        for i in booklist:
             temp = bookinfo.Bookinfo_Isbn(i)
             print(temp)
             self.favorsinf["favors"].append({
@@ -111,7 +116,6 @@ class FavorsView(views.APIView):
                 "description": temp['bookInfo']['description'],
                 "isbn": temp['bookInfo']['isbn'],
             })
-
 
         results = json.dumps(self.favorsinf, ensure_ascii=False)
         print("results: ", results)
@@ -126,11 +130,9 @@ class PaperView(views.APIView):
         print(request.body.decode("utf-8"))
         self.papername = request.body.decode("utf-8")
         self.paperinf = paper.Paper(self.papername)
-        # print(self.bookinf)
-        #results = SearchSerializer(self.bookinf, many=True).data
+
         results = self.paperinf
 
-        #print("results: ", results)
         return Response(results)
 
 class RecommendView(views.APIView):

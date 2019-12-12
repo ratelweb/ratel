@@ -1,5 +1,6 @@
 const initialState = {
-    user: {}
+    user: false,
+    sign: false
 };
 
 const userReducer = (state = initialState, action) => {
@@ -25,7 +26,7 @@ const userReducer = (state = initialState, action) => {
         case "LOGOUT_SUCCESS":
             return {
                 ...state,
-                user: null
+                user: false
             };
         case "LOGOUT_FAIL":
             return {
@@ -39,7 +40,7 @@ const userReducer = (state = initialState, action) => {
         case "SIGN_SUCCESS":
             return {
                 ...state,
-                user: action.payload
+                sign: action.payload
             };
         case "SIGN_FAIL":
             return {
