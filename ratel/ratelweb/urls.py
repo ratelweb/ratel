@@ -11,7 +11,6 @@ urlpatterns = [
     url("^favors/$", FavorsView.as_view(), name="favors"),
     url("^paper/$", PaperView.as_view(), name="paper"),
     url("^recommend/$", RecommendView.as_view(), name="recommend"),
-
     path('', views.homepage, name='homepage'),
     path('subpage', views.subpage, name='subpage'),
 ]

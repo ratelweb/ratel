@@ -25,7 +25,8 @@ def recommand(isbn):
             "authors": recommand["response"]["docs"][i]["book"]["authors"],
             "publisher": recommand["response"]["docs"][i]["book"]["publisher"],
             "isbn": recommand["response"]["docs"][i]["book"]["isbn13"],
-            "image": recommand["response"]["docs"][i]["book"]["bookImageURL"]
+            "image": recommand["response"]["docs"][i]["book"]["bookImageURL"],
+            # "description": recommand["response"]["docs"][i]["book"]["description"]
         })
 
     # json 형식으로 return

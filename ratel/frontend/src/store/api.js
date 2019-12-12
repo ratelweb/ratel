@@ -37,6 +37,7 @@ export const fetchPaperData = async payload => {
 };
 
 export const fetchRecomData = async payload => {
+    console.log(payload);
     try {
         const config = {
             method: "POST",
@@ -44,11 +45,12 @@ export const fetchRecomData = async payload => {
                 Accept: "application/json",
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(payload.payload)
+            body: JSON.stringify(payload)
         };
         const response = await fetch("http://localhost:8000/api/recommend/", config);
         const data = await response.json();
-        return JSON.parse(data);
+        console.log("data: ", data);
+        return data;
     } catch (e) {
         console.log(e);
     }
