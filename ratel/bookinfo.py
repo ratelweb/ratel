@@ -7,7 +7,6 @@ from collections import OrderedDict
 # 추천 도서 권수를 바꾸는 것은 밑에 표시
 #bookname = string
 
-
 def recommand(isbn):
     R_book = OrderedDict()
 
@@ -31,7 +30,7 @@ def recommand(isbn):
         })
 
     # json 형식으로 return
-    return json.dumps(R_book, ensure_ascii=False, indent="\t")
+    return R_book
 
 # 책 이름으로 책 정보 출력 ==> 도서명, 저자, 출판사, 책 표지 url, 책소개, isbn
 #bookname = string
@@ -99,7 +98,7 @@ def Bookinfo_Isbn(isbn):
 
     print(bookdata)
     bookInfo["bookname"] = bookdata["response"]["detail"][0]["book"]["bookname"]
-    bookInfo["authors"] = bookdata["response"]["detail"][0]["book"]["authors"]
+    bookInfo["author"] = bookdata["response"]["detail"][0]["book"]["authors"]
     bookInfo["publisher"] = bookdata["response"]["detail"][0]["book"]["publisher"]
     bookInfo["bookImageURL"] = bookdata["response"]["detail"][0]["book"]["bookImageURL"]
     bookInfo["description"] = bookdata["response"]["detail"][0]["book"]["description"]
@@ -107,7 +106,6 @@ def Bookinfo_Isbn(isbn):
     book["bookInfo"] = bookInfo
     print(book)
 
-    # json 형식으로 return
     return book
 
 #bookname = string

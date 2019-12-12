@@ -49,7 +49,8 @@ export const fetchRecomData = async payload => {
         };
         const response = await fetch("http://localhost:8000/api/recommend/", config);
         const data = await response.json();
-        return JSON.parse(data);
+        console.log("data: ", data);
+        return data;
     } catch (e) {
         console.log(e);
     }

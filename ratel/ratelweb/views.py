@@ -81,9 +81,11 @@ class FavorView(views.APIView):
 
 
 class FavorsView(views.APIView):
+
     username = ""
     username2 = ""
     username3 = "min"
+
     favorsinf = OrderedDict()
 
     booklist = []
@@ -91,6 +93,7 @@ class FavorsView(views.APIView):
     def post(self, request):
         print(request.body.decode("utf-8"))
         self.username = json.loads(request.body.decode("utf-8"))
+
         self.username2 = request.body.decode("utf-8")
         print("username:", self.username)
         print("username2:", self.username2)
@@ -101,12 +104,13 @@ class FavorsView(views.APIView):
         print("booklist", self.booklist)
 
         self.favorsinf['favors'] = []
+
         for i in booklist:
             temp = bookinfo.Bookinfo_Isbn(i)
             print(temp)
             self.favorsinf["favors"].append({
                 "bookname": temp['bookInfo']['bookname'],
-                "author": temp['bookInfo']['authors'],
+                "author": temp['bookInfo']['author'],
                 "publisher": temp['bookInfo']['publisher'],
                 "bookImageURL": temp['bookInfo']['bookImageURL'],
                 "description": temp['bookInfo']['description'],

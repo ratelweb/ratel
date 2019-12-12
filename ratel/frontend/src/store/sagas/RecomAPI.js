@@ -9,6 +9,7 @@ function* getRecomApi(payload) {
         const info = { username: payload.payload };
         // do api call
         const data = yield call(fetchRecomData, info);
+        console.log("Data: ", data);
         yield put(successRecom(data));
     } catch (e) {
         yield put(failRecom());

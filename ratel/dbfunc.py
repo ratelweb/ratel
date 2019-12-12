@@ -121,7 +121,6 @@ def find_isbn(mail):
 
     return list
 
-
 def list_bookmark(username):
 
     list = []
@@ -129,10 +128,10 @@ def list_bookmark(username):
     bookmark_set = Bookmark.objects.filter(iden=u)
     for p in bookmark_set:
         list.append(p.bookmark)
-
+    print(list)
     return list
-
 
 def id_return(mail):
     u = User.objects.get(email=mail)
     return u.id
+
