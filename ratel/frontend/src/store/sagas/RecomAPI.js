@@ -6,8 +6,9 @@ import { fetchRecomData, fetchFavorData, addFavorData } from "../api";
 
 function* getRecomApi(payload) {
     try {
+        const info = { username: payload.payload };
         // do api call
-        const data = yield call(fetchRecomData, payload);
+        const data = yield call(fetchRecomData, info);
         yield put(successRecom(data));
     } catch (e) {
         yield put(failRecom());
@@ -18,7 +19,6 @@ function* getRecomApi(payload) {
 function* getFavorApi(payload) {
     try {
         // do api call
-        const info = { username: payload.payload, user: payload.payload };
         const data = yield call(fetchFavorData, payload);
         console.log("data: ", data);
         yield put(successGetFavor(data));

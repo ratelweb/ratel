@@ -7,11 +7,10 @@ const MypagePT = props => {
     const dispatch = useDispatch();
     const favors = useSelector(state => state.recomReducer.favor.favors, []);
     const user = useSelector(state => state.userReducer.user, []);
-    const user1 = localStorage.getItem("id");
+    const user1 = JSON.parse(localStorage.getItem("id"));
 
     useEffect(() => {
-        
-        dispatch(requestGetFavor(user));
+        dispatch(requestGetFavor(user1));
     }, []);
 
     return (

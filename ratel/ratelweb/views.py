@@ -118,6 +118,22 @@ class FavorsView(views.APIView):
         return Response(results)
 
 
+class RecommendView(views.APIView):
+    id = {}
+    temp = ''
+    recommendlist = OrderedDict()
+
+    def post(self, request):
+        print(request.body.decode("utf-8"))
+        self.id = json.loads(request.body.decode("utf-8"))
+        print(self.id)
+        self.temp = dbfunc.find_isbn(self.id["username"])
+        self.recommendlist = bookinfo.recommand(self.temp)
+
+        print("recommendlist: ", self.recommendlist)
+        return Response(self.recommendlist)
+
+
 class PaperView(views.APIView):
     papername = "해리포터"
     paperinf = {}
