@@ -27,7 +27,7 @@ const LoginPT = props => {
 
     return (
         <div className="login-wrap">
-            {user == username && <Redirect to="/"></Redirect>}
+            {user != false && user == username && <Redirect to="/"></Redirect>}
             <div className="login-box">
                 <form onSubmit={onSubmit}>
                     <div className="form-box">
@@ -40,7 +40,7 @@ const LoginPT = props => {
                             <input type="password" value={password} onChange={onChangePassword}></input>
                         </div>
                     </div>
-                    <button>로그인</button>
+                    <button style={{ marginLeft: 50 }}>로그인</button>
                 </form>
             </div>
         </div>

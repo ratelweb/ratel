@@ -9,7 +9,6 @@ function* LoginApi({ payload }) {
         const data = yield call(fetchLogin, payload);
 
         if (data) {
-            //localStorage.setItem("token", responseBody.data.token);
             localStorage.setItem("id", JSON.stringify(payload.username));
             yield put(successLogin(payload.username));
         } else {
@@ -37,7 +36,7 @@ function* SignApi({ payload }) {
         const data = yield call(fetchSign, payload);
         if (data) {
             console.log("data", data);
-            yield put(successSign(payload.username));
+            yield put(successSign(data));
         } else {
             yield put(successSign(data));
         }

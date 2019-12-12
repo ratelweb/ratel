@@ -10,6 +10,7 @@ const MypagePT = props => {
     const user1 = localStorage.getItem("id");
 
     useEffect(() => {
+        
         dispatch(requestGetFavor(user));
     }, []);
 
