@@ -87,40 +87,32 @@ class FavorView(views.APIView):
 
 
 class FavorsView(views.APIView):
-    username = ""
+    username = {}
     favorsinf = OrderedDict()
     booklist = []
 
-    # booklist = ""
-
-
     def post(self, request):
         print(request.body.decode("utf-8"))
-        self.username = request.body.decode("utf-8")
-        booklist = dbfunc.list_bookmark(self.username)
+        self.username = json.loads(request.body.decode("utf-8"))
+        print("username", self.username)
+        self.booklist = dbfunc.list_bookmark(self.username)
 
-        # temp = dbfunc.id_return(self.id)
-        # print("#####", temp)
-        # booklist = dbfunc.find_isbn(self.id)
-
-        print("booklist", booklist)
+        print("booklist", self.booklist)
 
         self.favorsinf['favors'] = []
-        for i in booklist:
-            # print("i", type(i))
-            # print("i", str(i))
+        for i in self.booklist:
             temp = bookinfo.Bookinfo_Isbn(i)
             print(temp)
             self.favorsinf["favors"].append({
                 "bookname": temp['bookInfo']['bookname'],
-                "author": temp['bookInfo']['authors'],
+                "author": temp['bookInfo']['author'],
                 "publisher": temp['bookInfo']['publisher'],
-                "bookImageURL": temp['bookInfo']['bookname'],
+                "bookImageURL": temp['bookInfo']['bookImageURL'],
                 "description": temp['bookInfo']['description'],
                 "isbn": temp['bookInfo']['isbn'],
             })
 
-        # results = SearchSerializer(self.bookinf, many=True).data
+
         results = json.dumps(self.favorsinf, ensure_ascii=False)
         print("results: ", results)
         return Response(results)
@@ -140,3 +132,18 @@ class PaperView(views.APIView):
 
         #print("results: ", results)
         return Response(results)
+
+class RecommendView(views.APIView):
+    id = {}
+    temp = ''
+    recommendlist = OrderedDict()
+
+    def post(self, request):
+        print(request.body.decode("utf-8"))
+        self.id = json.loads(request.body.decode("utf-8"))
+
+        self.temp = dbfunc.find_isbn(self.id["username"])
+        self.recommendlist = bookinfo.recommand(self.temp)
+
+        print("recommendlist: ", self.recommendlist)
+        return Response(self.recommendlist)

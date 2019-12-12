@@ -8,7 +8,6 @@ const userReducer = (state = initialState, action) => {
             return {
                 ...state
             };
-
         case "LOGIN_SUCCESS":
             return {
                 ...state,
