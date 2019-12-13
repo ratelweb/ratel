@@ -50,6 +50,8 @@ const BookPT = props => {
                                 <div className="text">
                                     {book.description
                                         .replace(/(<([^>]+)>)/gi, "")
+                                        .replace(/&lt;/g, "<")
+                                        .replace(/&gt;/g, ">")
                                         .split("&#x0D;")
                                         .map(line => {
                                             return (

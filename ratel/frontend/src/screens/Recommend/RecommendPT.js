@@ -33,6 +33,8 @@ const RecommendPT = props => {
                                 <div className="text">
                                     {/* {recom.description
                                         .replace(/(<([^>]+)>)/gi, "")
+                                         .replace(/&lt;/g, "<")
+                                        .replace(/&gt;/g, ">")
                                         .split("&#x0D;")
                                         .map(line => {
                                             return (
