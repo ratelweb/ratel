@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 const PaperPT = props => {
     const dispatch = useDispatch();
-    let papers = useSelector(state => state.bookReducer.paper.paper);
+    let papers = useSelector(state => state.bookReducer.paper);
 
     const [keyword, setKeyword] = useState("");
 
@@ -30,8 +30,12 @@ const PaperPT = props => {
                 <img src={search} onClick={() => searchPaper(keyword)}></img>
             </div>
             <div className="content">
-                {papers &&
-                    papers.map(paper => {
+                {papers && papers == {} ? (
+                    <div>영어로 입력해주세요</div>
+                ) : (
+                    papers &&
+                    papers.paper &&
+                    papers.paper.map(paper => {
                         return (
                             <div className="item">
                                 <div className="title">{paper.title.replace(/(<([^>]+)>)/gi, "")}</div>
@@ -42,7 +46,8 @@ const PaperPT = props => {
                                 </div>
                             </div>
                         );
-                    })}
+                    })
+                )}
             </div>
         </div>
     );

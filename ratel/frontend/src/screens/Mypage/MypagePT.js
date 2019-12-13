@@ -29,6 +29,8 @@ const MypagePT = props => {
                                 <div className="text">
                                     {favor.description
                                         .replace(/(<([^>]+)>)/gi, "")
+                                        .replace(/&lt;/g, "<")
+                                        .replace(/&gt;/g, ">")
                                         .split("&#x0D;")
                                         .map(line => {
                                             return (
