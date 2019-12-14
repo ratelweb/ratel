@@ -4,4 +4,4 @@
 
 장고와 리액트를 사용
 
-[라텔 웹사이트](ratel.coi.kr) 
+[라텔 웹사이트](http://ratel.coi.kr/) 
